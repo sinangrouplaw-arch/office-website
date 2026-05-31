@@ -114,34 +114,34 @@ function formatTodayIndicator() {
 
 function updateWorkflow() {
   // Reset all steps
-  step1.classList.remove("completed");
-  step2.classList.remove("active", "completed");
-  step3.classList.remove("active", "completed");
+  if (step1) step1.classList.remove("completed");
+  if (step2) step2.classList.remove("active", "completed");
+  if (step3) step3.classList.remove("active", "completed");
   
   // Update based on selection
   if (selectedDate) {
-    step1.classList.add("completed");
+    if (step1) step1.classList.add("completed");
     if (selectedStart) {
-      step2.classList.add("completed");
-      step3.classList.add("active");
+      if (step2) step2.classList.add("completed");
+      if (step3) step3.classList.add("active");
     } else {
-      step2.classList.add("active");
+      if (step2) step2.classList.add("active");
     }
   } else {
-    step1.classList.add("active");
+    if (step1) step1.classList.add("active");
   }
 }
 
 function showCalendar() {
   const calendarWrapper = document.querySelector(".calendar-wrapper");
-  calendarWrapper.style.display = "block";
-  timeSlotsSection.style.display = "none";
+  if (calendarWrapper) calendarWrapper.style.display = "block";
+  if (timeSlotsSection) timeSlotsSection.style.display = "none";
 }
 
 function showTimeSlots() {
   const calendarWrapper = document.querySelector(".calendar-wrapper");
-  calendarWrapper.style.display = "none";
-  timeSlotsSection.style.display = "block";
+  if (calendarWrapper) calendarWrapper.style.display = "none";
+  if (timeSlotsSection) timeSlotsSection.style.display = "block";
 }
 
 function formatDateDisplay(dateString) {
@@ -168,9 +168,9 @@ function isDateAvailable(dateString) {
 }
 
 function renderCalendar() {
-  calendarGrid.innerHTML = "";
-  calendarTitle.textContent = formatMonthYear(currentMonth);
-  todayIndicator.textContent = `اليوم: ${formatTodayIndicator()}`;
+  if (calendarGrid) calendarGrid.innerHTML = "";
+  if (calendarTitle) calendarTitle.textContent = formatMonthYear(currentMonth);
+  if (todayIndicator) todayIndicator.textContent = `اليوم: ${formatTodayIndicator()}`;
 
   const year = currentMonth.getFullYear();
   const month = currentMonth.getMonth();
@@ -187,9 +187,9 @@ function renderCalendar() {
   for (let i = startingDayOfWeek - 1; i >= 0; i--) {
     const prevDate = new Date(year, month, -i);
     const dayElement = document.createElement("div");
-    dayElement.classList.add("calendar-day", "other-month");
-    dayElement.textContent = prevDate.getDate();
-    calendarGrid.appendChild(dayElement);
+    if (dayElement) dayElement.classList.add("calendar-day", "other-month");
+    if (dayElement) dayElement.textContent = prevDate.getDate();
+    if (calendarGrid) calendarGrid.appendChild(dayElement);
   }
 
   // Fill in the days of the current month
@@ -197,44 +197,44 @@ function renderCalendar() {
     const date = new Date(year, month, day);
     const dateString = dateToString(date);
     const dayElement = document.createElement("div");
-    dayElement.classList.add("calendar-day");
-    dayElement.textContent = day;
+    if (dayElement) dayElement.classList.add("calendar-day");
+    if (dayElement) dayElement.textContent = day;
 
     // Check if date is in the past
     if (dateString < minDate) {
-      dayElement.classList.add("disabled");
+      if (dayElement) dayElement.classList.add("disabled");
     } else {
       // Check if it's today
       if (dateString === today) {
-        dayElement.classList.add("today");
+        if (dayElement) dayElement.classList.add("today");
       }
 
       // Check availability
       if (isDateAvailable(dateString)) {
-        dayElement.classList.add("available");
-        dayElement.addEventListener("click", () => selectDate(dateString));
+        if (dayElement) dayElement.classList.add("available");
+        if (dayElement) dayElement.addEventListener("click", () => selectDate(dateString));
       } else {
-        dayElement.classList.add("booked");
+        if (dayElement) dayElement.classList.add("booked");
       }
     }
 
     // Mark as selected
     if (dateString === selectedDate) {
-      dayElement.classList.add("selected");
+      if (dayElement) dayElement.classList.add("selected");
     }
 
-    calendarGrid.appendChild(dayElement);
+    if (calendarGrid) calendarGrid.appendChild(dayElement);
   }
 
   // Fill in the days from next month
-  const totalCells = calendarGrid.children.length;
+  const totalCells = calendarGrid ? calendarGrid.children.length : 0;
   const cellsNeeded = 42 - totalCells;
   for (let day = 1; day <= cellsNeeded; day++) {
     const nextDate = new Date(year, month + 1, day);
     const dayElement = document.createElement("div");
-    dayElement.classList.add("calendar-day", "other-month");
-    dayElement.textContent = day;
-    calendarGrid.appendChild(dayElement);
+    if (dayElement) dayElement.classList.add("calendar-day", "other-month");
+    if (dayElement) dayElement.textContent = day;
+    if (calendarGrid) calendarGrid.appendChild(dayElement);
   }
 }
 
@@ -249,39 +249,39 @@ function selectDate(dateString) {
 }
 
 function renderTimeSlots() {
-  scheduleGrid.innerHTML = "";
+  if (scheduleGrid) scheduleGrid.innerHTML = "";
 
   if (!selectedDate) {
-    timeSlotsSection.style.display = "none";
+    if (timeSlotsSection) timeSlotsSection.style.display = "none";
     return;
   }
 
-  timeSlotsSection.style.display = "block";
-  selectedDateDisplay.textContent = `الأوقات المتاحة: ${formatDateDisplay(selectedDate)}`;
+  if (timeSlotsSection) timeSlotsSection.style.display = "block";
+  if (selectedDateDisplay) selectedDateDisplay.textContent = `الأوقات المتاحة: ${formatDateDisplay(selectedDate)}`;
 
   const bookedSlots = getBookedSlots(selectedDate);
   const selectedSlots = getSelectedSlots();
 
   getSlots().forEach(slot => {
     const slotElement = document.createElement("button");
-    slotElement.type = "button";
-    slotElement.classList.add("slot-card");
-    slotElement.textContent = formatTime(parseTimeKey(slot));
+    if (slotElement) slotElement.type = "button";
+    if (slotElement) slotElement.classList.add("slot-card");
+    if (slotElement) slotElement.textContent = formatTime(parseTimeKey(slot));
 
     if (bookedSlots.includes(slot)) {
-      slotElement.classList.add("slot-booked");
-      slotElement.disabled = true;
-      slotElement.title = "محجوز بالفعل";
+      if (slotElement) slotElement.classList.add("slot-booked");
+      if (slotElement) slotElement.disabled = true;
+      if (slotElement) slotElement.title = "محجوز بالفعل";
     } else {
-      slotElement.classList.add("slot-available");
-      slotElement.addEventListener("click", () => handleSlotClick(slot));
+      if (slotElement) slotElement.classList.add("slot-available");
+      if (slotElement) slotElement.addEventListener("click", () => handleSlotClick(slot));
     }
 
     if (selectedSlots.includes(slot)) {
-      slotElement.classList.add("slot-selected");
+      if (slotElement) slotElement.classList.add("slot-selected");
     }
 
-    scheduleGrid.appendChild(slotElement);
+    if (scheduleGrid) scheduleGrid.appendChild(slotElement);
   });
 }
 
@@ -322,15 +322,15 @@ function getSelectedSlotsForStart(startSlot, duration) {
 
 function updateSelectionSummary() {
   if (!selectedStart) {
-    summaryText.textContent = "حدد اليوم ثم اختر توقيتًا لبدء الحجز.";
-    bookNowBtn.disabled = true;
+    if (summaryText) summaryText.textContent = "حدد اليوم ثم اختر توقيتًا لبدء الحجز.";
+    if (bookNowBtn) bookNowBtn.disabled = true;
     return;
   }
 
   const displayDate = formatDateDisplay(selectedDate);
   const durationText = selectedDuration === 1 ? "ساعة" : selectedDuration === 2 ? "ساعتان" : "ثلاث ساعات";
-  summaryText.textContent = `التاريخ: ${displayDate} | يبدأ عند: ${formatTime(parseTimeKey(selectedStart))} | المدة: ${durationText}`;
-  bookNowBtn.disabled = false;
+  if (summaryText) summaryText.textContent = `التاريخ: ${displayDate} | يبدأ عند: ${formatTime(parseTimeKey(selectedStart))} | المدة: ${durationText}`;
+  if (bookNowBtn) bookNowBtn.disabled = false;
 }
 
 function saveBookings() {
@@ -370,10 +370,10 @@ function initialize() {
   updateSelectionSummary();
   updateWorkflow();
 
-  prevMonthBtn.addEventListener("click", previousMonth);
-  nextMonthBtn.addEventListener("click", nextMonth);
+  if (prevMonthBtn) prevMonthBtn.addEventListener("click", previousMonth);
+  if (nextMonthBtn) nextMonthBtn.addEventListener("click", nextMonth);
   
-  changeDateBtn.addEventListener("click", () => {
+  if (changeDateBtn) changeDateBtn.addEventListener("click", () => {
     selectedDate = "";
     selectedStart = "";
     renderCalendar();
@@ -383,7 +383,7 @@ function initialize() {
   });
 
   durationRadios.forEach(radio => {
-    radio.addEventListener("change", () => {
+    if (radio) radio.addEventListener("change", () => {
       selectedDuration = parseInt(radio.value, 10);
       selectedStart = "";
       renderTimeSlots();
@@ -392,7 +392,7 @@ function initialize() {
     });
   });
 
-  bookNowBtn.addEventListener("click", bookNow);
+  if (bookNowBtn) bookNowBtn.addEventListener("click", bookNow);
 }
 
 initialize();
