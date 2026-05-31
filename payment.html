@@ -3,15 +3,61 @@
 <head>
   <meta charset="UTF-8">
   <title>الدفع الإلكتروني</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <h1>صفحة الدفع الإلكتروني</h1>
-  <p>لقد اخترت الساعة: <span id="chosen-time"></span></p>
-  <button onclick="alert('هنا لاحقًا نربط الدفع الحقيقي')">ادفع الآن</button>
+  <div class="payment-container">
+    <div class="payment-card">
+      <h1>الدفع الإلكتروني</h1>
+      <p class="payment-intro">أنت ستحجز ساعة أو ساعتين أو ثلاث ساعات</p>
+      <p class="chosen-time-text">لقد اخترت: <span id="chosen-time">...</span></p>
+      <p class="chosen-date-text">اليوم: <span id="chosen-date">...</span></p>
+
+      <div class="radio-group">
+        <label><input type="radio" name="hours" value="1"> ساعة واحدة</label>
+        <label><input type="radio" name="hours" value="2"> ساعتان</label>
+        <label><input type="radio" name="hours" value="3"> ثلاث ساعات</label>
+      </div>
+
+      <button type="button" id="calculate-btn">احسب السعر</button>
+      <div id="total-result" class="total-result"></div>
+      <button type="button" id="pay-now-btn" class="hidden">ادفع الآن</button>
+    </div>
+  </div>
 
   <script>
     const params = new URLSearchParams(window.location.search);
-    document.getElementById("chosen-time").textContent = params.get("time");
+    const chosenTime = params.get("start") || "الوقت غير محدد";
+    const chosenDate = params.get("date") || "اليوم غير محدد";
+    const initialHours = params.get("hours") || "1";
+
+    document.getElementById("chosen-time").textContent = chosenTime;
+    document.getElementById("chosen-date").textContent = chosenDate;
+
+    document.querySelectorAll('input[name="hours"]').forEach(radio => {
+      if (radio.value === initialHours) {
+        radio.checked = true;
+      }
+    });
+
+    const calculateButton = document.getElementById("calculate-btn");
+    const payNowButton = document.getElementById("pay-now-btn");
+    const totalResult = document.getElementById("total-result");
+
+    calculateButton.addEventListener("click", () => {
+      const selectedHours = document.querySelector('input[name="hours"]:checked').value;
+      const total = selectedHours * 6;
+      totalResult.innerHTML = `السعر النهائي: <strong class="price-value">${total} دينار كويتي</strong>`;
+      payNowButton.classList.remove("hidden");
+      alert(`تم حساب السعر: ${total} دينار كويتي`);
+    });
+
+    payNowButton.addEventListener("click", () => {
+      window.location.href = "https://knet-payment-link.com";
+    });
   </script>
 </body>
 </html>

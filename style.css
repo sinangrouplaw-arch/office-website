@@ -1,11 +1,15 @@
 /* إعدادات عامة */
 body {
-  font-family: Tahoma, sans-serif;
+  font-family: 'Tajawal', Tahoma, sans-serif;
   direction: rtl;
   text-align: center;
   background-color: #f4f6f9;
   margin: 0;
   padding: 0;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 /* رأس الصفحة */
@@ -33,7 +37,8 @@ h1 {
 table {
   margin: 30px auto;
   border-collapse: collapse;
-  width: 80%;
+  width: 90%;
+  max-width: 1000px;
   background: white;
   box-shadow: 0 0 15px rgba(0,0,0,0.1);
   border-radius: 8px;
@@ -43,12 +48,14 @@ table {
 th {
   background: #004080;
   color: white;
-  padding: 12px;
+  padding: 14px;
+  font-size: 1rem;
 }
 
 td {
   border: 1px solid #ddd;
-  padding: 12px;
+  padding: 14px;
+  font-size: 0.98rem;
 }
 
 tr:hover {
@@ -56,28 +63,523 @@ tr:hover {
 }
 
 .available {
-  color: green;
+  color: #1a7d2c;
   font-weight: bold;
 }
 
 .booked {
-  color: red;
+  color: #c0392b;
   font-weight: bold;
+}
+
+.booking-action {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.booking-action select {
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: white;
+  color: #333;
+}
+
+.booking-action label {
+  font-weight: 600;
+  color: #333;
 }
 
 /* الأزرار */
 button {
-  padding: 8px 15px;
+  padding: 10px 18px;
   cursor: pointer;
   background: #004080;
   color: white;
   border: none;
-  border-radius: 5px;
-  transition: 0.3s;
+  border-radius: 8px;
+  transition: background 0.25s ease;
+  font-size: 1rem;
 }
 
 button:hover {
   background: #0066cc;
+}
+
+.booking-panel {
+  width: 95%;
+  max-width: 1100px;
+  margin: 30px auto;
+  padding: 20px 18px;
+  background: white;
+  border-radius: 18px;
+  box-shadow: 0 20px 45px rgba(0,0,0,0.08);
+}
+
+.booking-controls {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.date-picker,
+.duration-select {
+  background: #f7f9fc;
+  padding: 16px;
+  border-radius: 14px;
+  flex: 1 1 260px;
+}
+
+.date-picker label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: 700;
+  color: #1f305d;
+}
+
+.date-picker input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #cfd8e4;
+  border-radius: 10px;
+  font-size: 1rem;
+}
+
+.duration-select {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: #f7f9fc;
+  padding: 16px;
+  border-radius: 14px;
+}
+
+.duration-select span {
+  font-weight: 700;
+  color: #1f305d;
+}
+
+.duration-select label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: #ffffff;
+  border: 1px solid #d9e2ec;
+  cursor: pointer;
+}
+
+.duration-select input {
+  accent-color: #004080;
+}
+
+.schedule-section h2 {
+  margin-bottom: 18px;
+  color: #004080;
+  font-size: 1.4rem;
+}
+
+/* Workflow Indicator */
+.workflow-indicator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  padding: 16px;
+  background: #f0f4f8;
+  border-radius: 12px;
+  flex-wrap: wrap;
+}
+
+.step {
+  font-size: 0.9rem;
+  color: #999;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 20px;
+  background: white;
+  border: 1px solid #e0e0e0;
+  transition: all 0.3s ease;
+}
+
+.step.active {
+  color: #004080;
+  background: #e9f0ff;
+  border-color: #4a90e2;
+  font-weight: 700;
+}
+
+.step.completed {
+  color: #1a7d2c;
+  background: #e9f7ee;
+  border-color: #52b788;
+}
+
+.step-arrow {
+  color: #ccc;
+  font-size: 1.1rem;
+  display: none;
+}
+
+@media (min-width: 600px) {
+  .step-arrow {
+    display: inline;
+  }
+}
+
+/* Calendar Wrapper */
+.calendar-wrapper {
+  transition: all 0.3s ease;
+}
+
+.calendar-title-wrapper {
+  flex: 1;
+  text-align: center;
+}
+
+.calendar-title-wrapper h2 {
+  margin: 0 0 6px 0;
+  color: #004080;
+  font-size: 1.4rem;
+}
+
+.today-indicator {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+/* Professional Calendar Styling */
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding: 12px 0;
+  border-bottom: 2px solid #e8ecf1;
+}
+
+.calendar-header h2 {
+  margin-bottom: 18px;
+  color: #004080;
+  font-size: 1.4rem;
+}
+
+.nav-btn {
+  background: #f0f4f8;
+  color: #004080;
+  border: none;
+  border-radius: 8px;
+  width: 40px;
+  height: 40px;
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.nav-btn:hover {
+  background: #d6e4f5;
+  transform: scale(1.05);
+}
+
+.calendar-container {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.day-names {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.day-name {
+  text-align: center;
+  font-weight: 700;
+  color: #004080;
+  padding: 10px 0;
+  font-size: 0.9rem;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+}
+
+.calendar-day {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  border: 2px solid #e8ecf1;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+  color: #666;
+}
+
+.calendar-day:not(.other-month):not(.disabled) {
+  cursor: pointer;
+  color: #333;
+}
+
+.calendar-day.other-month {
+  color: #ccc;
+  cursor: default;
+  background: #fafbfc;
+}
+
+.calendar-day.today {
+  border-color: #4a90e2;
+  background: #e9f0ff;
+  color: #004080;
+  font-weight: 700;
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+}
+
+.calendar-day.available:not(.selected):not(.today) {
+  border-color: #d1e7c4;
+  background: #f0f9ed;
+  color: #1a7d2c;
+}
+
+.calendar-day.available:hover {
+  background: #d1e7c4;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(26, 125, 44, 0.2);
+}
+
+.calendar-day.selected {
+  background: #4a90e2;
+  color: white;
+  border-color: #004080;
+  box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
+}
+
+.calendar-day.booked {
+  background: #ebedf0;
+  color: #999;
+  border-color: #d4d4d8;
+  cursor: not-allowed;
+}
+
+.calendar-day.disabled {
+  background: #f5f5f5;
+  color: #aaa;
+  border-color: #e0e0e0;
+  cursor: not-allowed;
+}
+
+/* Time Slots Section */
+.time-slots-section {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.time-slots-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #e8ecf1;
+}
+
+.time-slots-header h3 {
+  margin: 0;
+  color: #004080;
+  font-size: 1.1rem;
+  flex: 1;
+}
+
+.change-date-btn {
+  background: #f0f4f8;
+  color: #004080;
+  border: 1px solid #d6e4f5;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.change-date-btn:hover {
+  background: #d6e4f5;
+  border-color: #4a90e2;
+}
+
+.schedule-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 14px;
+}
+
+.slot-card {
+  padding: 18px 12px;
+  border-radius: 16px;
+  border: 1px solid transparent;
+  font-weight: 700;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.slot-card:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+.slot-available {
+  background: #e9f7ee;
+  color: #1a7d3c;
+}
+
+.slot-booked {
+  background: #ebedf0;
+  color: #7f8c8d;
+  cursor: not-allowed;
+}
+
+.slot-selected {
+  background: #d6e9ff;
+  border-color: #4a90e2;
+  color: #11467a;
+}
+
+.selection-summary {
+  margin-top: 22px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.selection-summary p {
+  margin: 0;
+  font-size: 1rem;
+  color: #2c3e50;
+  flex: 1 1 360px;
+  text-align: right;
+}
+
+.selection-summary button {
+  min-width: 180px;
+}
+
+.no-date {
+  padding: 40px 20px;
+  color: #5b6b80;
+  font-size: 1rem;
+  text-align: center;
+  background: #f7f9fc;
+  border-radius: 16px;
+}
+
+.payment-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  min-height: 100vh;
+  background: #f4f6f9;
+}
+
+.payment-card {
+  width: 100%;
+  max-width: 460px;
+  padding: 32px;
+  border-radius: 18px;
+  background: white;
+  box-shadow: 0 24px 50px rgba(0,0,0,0.12);
+  text-align: right;
+}
+
+.payment-card h1 {
+  margin-bottom: 12px;
+  font-size: 1.9rem;
+}
+
+.payment-intro {
+  margin-bottom: 16px;
+  font-size: 1.15rem;
+  color: #333;
+}
+
+.chosen-time-text {
+  margin-bottom: 24px;
+  font-size: 1rem;
+  color: #555;
+}
+
+.radio-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.radio-group label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  background: #fafafa;
+}
+
+.radio-group input {
+  accent-color: #004080;
+}
+
+.total-result {
+  margin-top: 16px;
+  font-size: 1.25rem;
+  color: #1a7d2c;
+  font-weight: bold;
+}
+
+.price-value {
+  color: #0f6d3a;
+}
+
+.hidden {
+  display: none;
 }
 
 /* قسم الصور */
@@ -125,3 +627,601 @@ button:hover {
   color: #333;
   font-weight: 600;
 }
+
+@media (max-width: 1024px) {
+  .booking-panel {
+    width: 96%;
+    padding: 18px;
+  }
+
+  .booking-controls {
+    gap: 16px;
+    justify-content: center;
+  }
+
+  .duration-select {
+    flex: 0 1 auto;
+  }
+
+  .schedule-grid {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 12px;
+  }
+
+  .gallery-item {
+    width: 45%;
+  }
+
+  .calendar-grid {
+    gap: 6px;
+  }
+
+  .calendar-day {
+    font-size: 0.9rem;
+  }
+
+  .workflow-indicator {
+    gap: 10px;
+    padding: 12px;
+  }
+
+  .step {
+    font-size: 0.85rem;
+    padding: 5px 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  header {
+    padding: 16px;
+  }
+
+  header h1 {
+    font-size: 1.5rem;
+  }
+
+  header p {
+    font-size: 0.95rem;
+  }
+
+  .banner {
+    max-height: 280px;
+    margin-bottom: 12px;
+  }
+
+  .booking-panel {
+    width: 96%;
+    margin: 20px auto;
+    padding: 16px;
+    border-radius: 14px;
+  }
+
+  .booking-controls {
+    flex-direction: column;
+    gap: 14px;
+    align-items: stretch;
+    justify-content: flex-start;
+  }
+
+  .date-picker,
+  .duration-select {
+    flex: 1 1 100%;
+    padding: 14px;
+  }
+
+  .date-picker input {
+    padding: 11px 12px;
+    font-size: 1rem;
+  }
+
+  .duration-select {
+    gap: 8px;
+  }
+
+  .duration-select label {
+    padding: 9px 12px;
+    font-size: 0.95rem;
+  }
+
+  .workflow-indicator {
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px;
+  }
+
+  .step {
+    font-size: 0.85rem;
+    padding: 6px 10px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .step-arrow {
+    display: none !important;
+  }
+
+  .schedule-grid {
+    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+    gap: 10px;
+  }
+
+  .slot-card {
+    padding: 14px 10px;
+    font-size: 0.9rem;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .time-slots-section {
+    padding: 16px;
+  }
+
+  .time-slots-header {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+    margin-bottom: 14px;
+  }
+
+  .time-slots-header h3 {
+    font-size: 1rem;
+    margin-bottom: 0;
+    width: 100%;
+  }
+
+  .change-date-btn {
+    width: 100%;
+  }
+
+  .calendar-container {
+    padding: 16px;
+  }
+
+  .day-name {
+    font-size: 0.85rem;
+    padding: 8px 0;
+  }
+
+  .calendar-day {
+    font-size: 0.9rem;
+    border-width: 1px;
+  }
+
+  .nav-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 1.2rem;
+  }
+
+  .calendar-header h2 {
+    font-size: 1.15rem;
+  }
+
+  .selection-summary {
+    flex-direction: column;
+    gap: 12px;
+    justify-content: center;
+  }
+
+  .selection-summary p {
+    flex: 1 1 100%;
+    font-size: 0.95rem;
+    margin: 0;
+  }
+
+  .selection-summary button {
+    width: 100%;
+    min-width: unset;
+    padding: 12px 16px;
+    font-size: 1rem;
+  }
+
+  .gallery {
+    margin: 40px auto;
+    padding: 0 16px;
+  }
+
+  .gallery h2 {
+    font-size: 1.3rem;
+  }
+
+  .gallery-container {
+    gap: 14px;
+  }
+
+  .gallery-item {
+    width: 100%;
+    min-width: unset;
+  }
+
+  .gallery-img {
+    max-height: 240px;
+  }
+
+  .gallery-caption {
+    font-size: 0.95rem;
+    margin-top: 10px;
+  }
+
+  .payment-card {
+    width: 95%;
+    max-width: 100%;
+    padding: 24px 16px;
+  }
+
+  .payment-card h1 {
+    font-size: 1.5rem;
+  }
+
+  .payment-intro {
+    font-size: 1rem;
+  }
+
+  .chosen-time-text {
+    font-size: 0.95rem;
+  }
+
+  table {
+    width: 95%;
+  }
+
+  th, td {
+    padding: 11px 8px;
+    font-size: 0.9rem;
+  }
+
+  button {
+    padding: 10px 14px;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    font-size: 14px;
+  }
+
+  header {
+    padding: 14px;
+  }
+
+  header h1 {
+    font-size: 1.3rem;
+    margin: 8px 0;
+  }
+
+  header p {
+    font-size: 0.9rem;
+    margin: 6px 0;
+  }
+
+  .banner {
+    max-height: 220px;
+    margin-bottom: 10px;
+    border-bottom: 3px solid #004080;
+  }
+
+  .booking-panel {
+    width: 97%;
+    margin: 16px auto;
+    padding: 14px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  }
+
+  .booking-controls {
+    gap: 12px;
+    margin-bottom: 18px;
+    flex-direction: column;
+  }
+
+  .date-picker,
+  .duration-select {
+    padding: 12px;
+  }
+
+  .date-picker label {
+    font-size: 0.95rem;
+    margin-bottom: 8px;
+  }
+
+  .date-picker input {
+    padding: 10px 10px;
+    font-size: 0.95rem;
+    border-radius: 8px;
+  }
+
+  .duration-select span {
+    font-size: 0.95rem;
+    margin-bottom: 4px;
+  }
+
+  .duration-select label {
+    padding: 8px 10px;
+    font-size: 0.9rem;
+    gap: 8px;
+  }
+
+  .workflow-indicator {
+    flex-direction: column;
+    gap: 6px;
+    padding: 10px;
+  }
+
+  .step {
+    font-size: 0.8rem;
+    padding: 5px 8px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .step-arrow {
+    display: none !important;
+  }
+
+  .calendar-container {
+    padding: 12px;
+  }
+
+  .day-names {
+    gap: 4px;
+    margin-bottom: 8px;
+  }
+
+  .day-name {
+    font-size: 0.75rem;
+    padding: 6px 0;
+  }
+
+  .calendar-grid {
+    gap: 4px;
+  }
+
+  .calendar-day {
+    font-size: 0.8rem;
+    aspect-ratio: 1;
+    border-width: 1px;
+    border-radius: 8px;
+  }
+
+  .nav-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 1.1rem;
+  }
+
+  .calendar-header {
+    margin-bottom: 18px;
+    padding: 10px 0;
+  }
+
+  .calendar-header h2 {
+    font-size: 1rem;
+  }
+
+  .time-slots-section {
+    padding: 14px;
+    margin-top: 16px;
+  }
+
+  .time-slots-header {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .time-slots-header h3 {
+    font-size: 0.95rem;
+    margin-bottom: 0;
+    width: 100%;
+  }
+
+  .change-date-btn {
+    width: 100%;
+    font-size: 0.85rem;
+    padding: 8px 12px;
+  }
+
+  .schedule-grid {
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    gap: 8px;
+  }
+
+  .slot-card {
+    padding: 12px 8px;
+    font-size: 0.85rem;
+    min-height: 55px;
+    border-radius: 12px;
+  }
+
+  .no-date {
+    padding: 30px 16px;
+    font-size: 0.95rem;
+    border-radius: 12px;
+  }
+
+  .selection-summary {
+    margin-top: 18px;
+    flex-direction: column;
+    gap: 10px;
+    align-items: stretch;
+  }
+
+  .selection-summary p {
+    font-size: 0.9rem;
+    text-align: right;
+    line-height: 1.4;
+  }
+
+  .selection-summary button {
+    width: 100%;
+    padding: 13px 14px;
+    font-size: 0.95rem;
+    min-height: 44px;
+    border-radius: 10px;
+  }
+
+  .gallery {
+    margin: 30px auto;
+    padding: 0 12px;
+  }
+
+  .gallery h2 {
+    font-size: 1.15rem;
+    margin-bottom: 16px;
+  }
+
+  .gallery-container {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .gallery-item {
+    width: 100%;
+  }
+
+  .gallery-img {
+    max-height: 200px;
+    border-radius: 10px;
+  }
+
+  .gallery-caption {
+    font-size: 0.9rem;
+    margin-top: 8px;
+  }
+
+  .payment-card {
+    width: 96%;
+    padding: 20px 14px;
+    border-radius: 14px;
+  }
+
+  .payment-card h1 {
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+  }
+
+  .payment-intro {
+    font-size: 0.95rem;
+    margin-bottom: 12px;
+  }
+
+  .chosen-time-text {
+    font-size: 0.9rem;
+    margin-bottom: 18px;
+  }
+
+  .radio-group {
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .radio-group label {
+    padding: 9px 12px;
+    font-size: 0.9rem;
+    gap: 6px;
+  }
+
+  .total-result {
+    margin-top: 14px;
+    font-size: 1.1rem;
+  }
+
+  table {
+    margin: 20px auto;
+    width: 96%;
+  }
+
+  th {
+    padding: 10px 6px;
+    font-size: 0.85rem;
+  }
+
+  td {
+    padding: 10px 6px;
+    font-size: 0.85rem;
+  }
+
+  button {
+    padding: 10px 12px;
+    font-size: 0.9rem;
+    min-height: 44px;
+    border-radius: 8px;
+  }
+}
+
+@media (max-width: 360px) {
+  header {
+    padding: 12px;
+  }
+
+  header h1 {
+    font-size: 1.2rem;
+    margin: 6px 0;
+  }
+
+  header p {
+    font-size: 0.85rem;
+  }
+
+  .banner {
+    max-height: 180px;
+    margin-bottom: 8px;
+  }
+
+  .booking-panel {
+    width: 98%;
+    padding: 12px;
+    margin: 12px auto;
+  }
+
+  .workflow-indicator {
+    flex-direction: column;
+    gap: 5px;
+    padding: 8px;
+  }
+
+  .step {
+    font-size: 0.75rem;
+    padding: 4px 6px;
+  }
+
+  .calendar-container {
+    padding: 10px;
+  }
+
+  .day-name {
+    font-size: 0.7rem;
+  }
+
+  .calendar-day {
+    font-size: 0.75rem;
+    border-radius: 6px;
+  }
+
+  .time-slots-header {
+    gap: 6px;
+  }
+
+  .time-slots-header h3 {
+    font-size: 0.9rem;
+  }
+
+  .change-date-btn {
+    font-size: 0.8rem;
+    padding: 7px 10px;
+  }
+
+  .schedule-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+  }
+
+  .slot-card {
+    padding: 10px 6px;
+    font-size: 0.8rem;
+    min-height: 50px;
+  }
+}
+

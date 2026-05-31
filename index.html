@@ -2,6 +2,7 @@
 <html lang="ar">
   <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>جدول الحجوزات</title>
     <link rel="stylesheet" href="style.css">
   </head>
@@ -12,17 +13,63 @@
       <p>اختر الوقت المناسب لك من الجدول أدناه</p>
     </header>
 
-    <table id="booking-table">
-      <thead>
-        <tr>
-          <th>الساعة</th>
-          <th>الحالة</th>
-          <th>اختيار</th>
-        </tr>
-      </thead>
-      <tbody>
-      </tbody>
-    </table>
+    <section class="booking-panel">
+      <div class="booking-controls">
+        <div class="duration-select">
+          <span>مدة الحجز</span>
+          <label><input type="radio" name="duration" value="1" checked> ساعة</label>
+          <label><input type="radio" name="duration" value="2"> ساعتان</label>
+          <label><input type="radio" name="duration" value="3"> ثلاث ساعات</label>
+        </div>
+      </div>
+
+      <div class="schedule-section">
+        <div class="calendar-wrapper">
+          <div class="workflow-indicator">
+            <span class="step active" id="step-1">① اختر اليوم</span>
+            <span class="step-arrow">→</span>
+            <span class="step" id="step-2">② اختر الوقت</span>
+            <span class="step-arrow">→</span>
+            <span class="step" id="step-3">③ اكمل الحجز</span>
+          </div>
+
+          <div class="calendar-header">
+            <button id="prev-month" class="nav-btn">‹</button>
+            <div class="calendar-title-wrapper">
+              <h2 id="calendar-title">الشهر</h2>
+              <p id="today-indicator" class="today-indicator"></p>
+            </div>
+            <button id="next-month" class="nav-btn">›</button>
+          </div>
+          
+          <div class="calendar-container">
+            <div class="day-names">
+              <div class="day-name">الأحد</div>
+              <div class="day-name">الاثنين</div>
+              <div class="day-name">الثلاثاء</div>
+              <div class="day-name">الأربعاء</div>
+              <div class="day-name">الخميس</div>
+              <div class="day-name">الجمعة</div>
+              <div class="day-name">السبت</div>
+            </div>
+            <div class="calendar-grid" id="calendar-grid"></div>
+          </div>
+        </div>
+
+        <div id="time-slots-section" class="time-slots-section" style="display: none;">
+          <div class="time-slots-header">
+            <h3 id="selected-date-display">الأوقات المتاحة</h3>
+            <button id="change-date-btn" class="change-date-btn">غير التاريخ</button>
+          </div>
+          <div class="schedule-grid" id="schedule-grid"></div>
+        </div>
+      </div>
+
+      <div class="selection-summary">
+        <p id="selected-summary">حدد اليوم ثم اختر توقيتًا لبدء الحجز.</p>
+        <button id="book-now-btn" disabled>احجز وادفع</button>
+      </div>
+    </section>
 
     <!-- قسم الصور -->
     <section class="gallery">
