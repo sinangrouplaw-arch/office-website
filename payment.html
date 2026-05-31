@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>الدفع الإلكتروني</title>
+</head>
+<body>
+  <h1>صفحة الدفع الإلكتروني</h1>
+  <p>لقد اخترت الساعة: <span id="chosen-time"></span></p>
+  <button onclick="alert('هنا لاحقًا نربط الدفع الحقيقي')">ادفع الآن</button>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    document.getElementById("chosen-time").textContent = params.get("time");
+  </script>
+</body>
+</html>

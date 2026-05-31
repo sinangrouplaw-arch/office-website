@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>لوحة إدارة الحجوزات</title>
+  <style>
+    body { font-family: Tahoma, sans-serif; direction: rtl; text-align: center; }
+    table { margin: auto; border-collapse: collapse; width: 70%; }
+    th, td { border: 1px solid #333; padding: 10px; }
+    button { margin: 5px; padding: 5px 10px; }
+    input, select { margin: 5px; padding: 5px; }
+  </style>
+</head>
+<body>
+  <h1>لوحة إدارة الحجوزات</h1>
+
+  <!-- نموذج إضافة حجز جديد -->
+  <h2>إضافة حجز جديد</h2>
+  <input type="text" id="new-time" placeholder="اكتب الساعة مثلاً 3:00 مساءً">
+  <select id="new-status">
+    <option value="محجوز">محجوز</option>
+    <option value="متاح">متاح</option>
+  </select>
+  <button onclick="addBooking()">إضافة</button>
+
+  <!-- جدول الحجوزات -->
+  <table>
+    <thead>
+      <tr>
+        <th>الساعة</th>
+        <th>الحالة</th>
+        <th>إجراءات</th>
+      </tr>
+    </thead>
+    <tbody id="booking-table"></tbody>
+  </table>
+
+  <script>
+    // قراءة الحجوزات من LocalStorage
+    let bookings = JSON.parse(localStorage.getItem("bookings")) || [];
+
+    const table = document.getElementById("booking-table");
+
+    function renderTable() {
+      table.innerHTML = "";
+      bookings.forEach((b, i) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${b.time}</td>
+          <td>${b.status}</td>
+          <td>
+            <button onclick="toggleStatus(${i})">تغيير الحالة</button>
+            <button onclick="editBooking(${i})">تعديل</button>
+            <button onclick="deleteBooking(${i})">إلغاء</button>
+          </td>
+        `;
+        table.appendChild(row);
+      });
+    }
+
+    // إضافة حجز جديد
+    function addBooking() {
+      const time = document.getElementById("new-time").value;
+      const status = document.getElementById("new-status").value;
+      if (time) {
+        bookings.push({ time, status });
+        localStorage.setItem("bookings", JSON.stringify(bookings));
+        renderTable();
+        document.getElementById("new-time").value = ""; // مسح الحقل بعد الإضافة
+      }
+    }
+
+    // تغيير الحالة
+    function toggleStatus(i) {
+      bookings[i].status = bookings[i].status === "محجوز" ? "متاح" : "محجوز";
+      localStorage.setItem("bookings", JSON.stringify(bookings));
+      renderTable();
+    }
+
+    // تعديل حجز
+    function editBooking(i) {
+      const newTime = prompt("أدخل الساعة الجديدة:", bookings[i].time);
+      const newStatus = prompt("أدخل الحالة الجديدة (محجوز/متاح):", bookings[i].status);
+      if (newTime && newStatus) {
+        bookings[i].time = newTime;
+        bookings[i].status = newStatus;
+        localStorage.setItem("bookings", JSON.stringify(bookings));
+        renderTable();
+      }
+    }
+
+    // إلغاء حجز
+    function deleteBooking(i) {
+      bookings.splice(i, 1);
+      localStorage.setItem("bookings", JSON.stringify(bookings));
+      renderTable();
+    }
+
+    renderTable();
+  </script>
+</body>
+</html>

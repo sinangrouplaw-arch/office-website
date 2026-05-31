@@ -1,0 +1,127 @@
+/* إعدادات عامة */
+body {
+  font-family: Tahoma, sans-serif;
+  direction: rtl;
+  text-align: center;
+  background-color: #f4f6f9;
+  margin: 0;
+  padding: 0;
+}
+
+/* رأس الصفحة */
+header {
+  background: #004080;
+  color: white;
+  padding: 20px;
+}
+
+/* صورة البانر */
+.banner {
+  width: 100%;
+  max-height: 500px;
+  object-fit: cover;
+  margin-bottom: 15px;
+  border-bottom: 4px solid #004080;
+}
+
+/* العنوان */
+h1 {
+  margin: 10px 0;
+}
+
+/* الجدول */
+table {
+  margin: 30px auto;
+  border-collapse: collapse;
+  width: 80%;
+  background: white;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+th {
+  background: #004080;
+  color: white;
+  padding: 12px;
+}
+
+td {
+  border: 1px solid #ddd;
+  padding: 12px;
+}
+
+tr:hover {
+  background-color: #f1f1f1;
+}
+
+.available {
+  color: green;
+  font-weight: bold;
+}
+
+.booked {
+  color: red;
+  font-weight: bold;
+}
+
+/* الأزرار */
+button {
+  padding: 8px 15px;
+  cursor: pointer;
+  background: #004080;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #0066cc;
+}
+
+/* قسم الصور */
+.gallery {
+  margin: 50px auto;
+  text-align: center;
+}
+
+.gallery h2 {
+  margin-bottom: 20px;
+  color: #004080;
+}
+
+.gallery-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.gallery-item {
+  width: 32%;
+  min-width: 220px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.gallery-img {
+  width: 100%;
+  max-height: 280px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 0 14px rgba(0, 0, 0, 0.18);
+  transition: transform 0.3s;
+}
+
+.gallery-img:hover {
+  transform: scale(1.05);
+}
+
+.gallery-caption {
+  margin-top: 12px;
+  font-size: 1rem;
+  color: #333;
+  font-weight: 600;
+}
