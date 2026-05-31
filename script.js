@@ -1,4 +1,19 @@
 const bookings = JSON.parse(localStorage.getItem("bookings")) || {};
+// Global resource load error handler: warns developer when images/scripts/styles fail to load
+window.addEventListener("error", (event) => {
+  const target = event.target || event.srcElement;
+  try {
+    if (target && target.tagName) {
+      const tag = target.tagName.toUpperCase();
+      if (tag === "IMG" || tag === "SCRIPT" || tag === "LINK") {
+        const url = target.src || target.href || "unknown resource";
+        console.warn(`Resource failed to load: ${url}`);
+      }
+    }
+  } catch (e) {
+    // swallow secondary errors from the handler itself
+  }
+}, true);
 let selectedDate = "";
 let selectedStart = "";
 let selectedDuration = 1;
@@ -327,8 +342,8 @@ function bookNow() {
     alert("يجب اختيار تاريخ ووقت ومدة الحجز أولاً.");
     return;
   }
-
-  const message = `السلام عليكم، ممكن أحجز الساعة ${formatTime(parseTimeKey(selectedStart))} ولمدة ${selectedDuration}`;
+  const durationText = selectedDuration === 1 ? "ساعة" : `${selectedDuration} ساعات`;
+  const message = `السلام عليكم، ممكن أحجز الساعة ${formatTime(parseTimeKey(selectedStart))} ولمدة ${durationText}`;
   const encodedText = encodeURIComponent(message);
   const whatsappUrl = `https://wa.me/96550933933?text=${encodedText}`;
 
