@@ -19,13 +19,41 @@ header {
   padding: 20px;
 }
 
-/* صورة البانر */
-.banner {
-  width: 100%;
-  max-height: 500px;
-  object-fit: cover;
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 15px;
-  border-bottom: 4px solid #004080;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+header h1 {
+  margin: 0;
+  flex: 1;
+  min-width: 200px;
+}
+
+.lang-toggle-btn {
+  background: #ff9800;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 6px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.lang-toggle-btn:hover {
+  background: #f57c00;
+  transform: scale(1.05);
+}
+
+.lang-toggle-btn:active {
+  transform: scale(0.98);
 }
 
 /* العنوان */
@@ -154,30 +182,88 @@ button:hover {
 .duration-select {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 20px;
   background: #f7f9fc;
   padding: 16px;
   border-radius: 14px;
 }
 
-.duration-select span {
+.duration-label {
   font-weight: 700;
   color: #1f305d;
+  font-size: 2rem;
 }
 
-.duration-select label {
-  display: inline-flex;
+.duration-options {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.duration-box {
+  position: relative;
+  display: flex;
+  flex-direction: column;
   align-items: center;
   gap: 10px;
-  padding: 10px 14px;
+  padding: 20px 25px;
   border-radius: 12px;
   background: #ffffff;
-  border: 1px solid #d9e2ec;
+  border: 2px solid #d9e2ec;
   cursor: pointer;
+  transition: all 0.3s ease;
+  width: 120px;
 }
 
-.duration-select input {
-  accent-color: #004080;
+.duration-box:hover {
+  border-color: #004080;
+  background: #f0f4f8;
+}
+
+.duration-box input {
+  display: none;
+}
+
+.duration-box input:checked + .checkmark {
+  background: #004080;
+  border-color: #004080;
+  box-shadow: 0 0 0 3px rgba(0, 64, 128, 0.1);
+}
+
+.duration-box input:checked + .checkmark:after {
+  display: block;
+}
+
+.checkmark {
+  width: 40px;
+  height: 40px;
+  border: 2px solid #d9e2ec;
+  border-radius: 8px;
+  background: white;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.checkmark:after {
+  content: "✓";
+  position: absolute;
+  display: none;
+  left: 10px;
+  top: 5px;
+  width: 20px;
+  height: 20px;
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 1;
+}
+
+.option-text {
+  font-weight: 600;
+  color: #1f305d;
+  text-align: center;
+  font-size: 0.95rem;
 }
 
 .schedule-section h2 {
@@ -208,17 +294,36 @@ button:hover {
   background: linear-gradient(90deg, #fff7e6, #fff4f0);
   border: 1px solid #ffd89b;
   color: #333;
-  font-weight: 800;
+  font-weight: 600;
   font-size: 1.05rem;
   border-radius: 12px;
   box-shadow: 0 6px 18px rgba(0,0,0,0.06);
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.price-highlight {
+  background: #ff9800;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-weight: 800;
+  font-size: 1.2rem;
+  box-shadow: 0 4px 12px rgba(255, 152, 0, 0.4);
+  display: inline-block;
 }
 
 @media (min-width: 900px) {
   .price-banner {
     font-size: 1.15rem;
     padding: 18px 24px;
+  }
+  
+  .price-highlight {
+    font-size: 1.3rem;
   }
 }
 
@@ -434,7 +539,7 @@ button:hover {
 
 .time-slots-header {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   margin-bottom: 18px;
   padding-bottom: 12px;
@@ -444,25 +549,8 @@ button:hover {
 .time-slots-header h3 {
   margin: 0;
   color: #004080;
-  font-size: 1.1rem;
+  font-size: 2.2rem;
   flex: 1;
-}
-
-.change-date-btn {
-  background: #f0f4f8;
-  color: #004080;
-  border: 1px solid #d6e4f5;
-  padding: 8px 14px;
-  border-radius: 8px;
-  font-size: 0.85rem;
-  cursor: pointer;
-  font-weight: 600;
-  transition: all 0.3s ease;
-}
-
-.change-date-btn:hover {
-  background: #d6e4f5;
-  border-color: #4a90e2;
 }
 
 .schedule-grid {
@@ -789,12 +877,8 @@ button:hover {
   }
 
   .time-slots-header h3 {
-    font-size: 1rem;
+    font-size: 1.8rem;
     margin-bottom: 0;
-    width: 100%;
-  }
-
-  .change-date-btn {
     width: 100%;
   }
 

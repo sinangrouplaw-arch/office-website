@@ -2,42 +2,220 @@
 <html lang="ar">
 <head>
   <meta charset="UTF-8">
-  <title>لوحة إدارة الحجوزات</title>
+  <title id="page-title">لوحة إدارة الحجوزات</title>
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <link rel="icon" href="banner.png" type="image/png">
+  <script src="translations.js"></script>
   <style>
-    body { font-family: Tahoma, sans-serif; direction: rtl; text-align: center; }
-    table { margin: auto; border-collapse: collapse; width: 70%; }
-    th, td { border: 1px solid #333; padding: 10px; }
-    button { margin: 5px; padding: 5px 10px; }
-    input, select { margin: 5px; padding: 5px; }
+    body { 
+      font-family: 'Tajawal', Tahoma, sans-serif; 
+      direction: rtl; 
+      text-align: center;
+      background: #f4f6f9;
+      margin: 0;
+      padding: 20px;
+    }
+    
+    header {
+      background: #004080;
+      color: white;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    
+    header h1 {
+      margin: 0;
+      flex: 1;
+      min-width: 200px;
+    }
+    
+    .lang-toggle-btn {
+      background: #ff9800;
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 6px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+    }
+    
+    .lang-toggle-btn:hover {
+      background: #f57c00;
+      transform: scale(1.05);
+    }
+    
+    .admin-container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    
+    h2 { 
+      color: #004080;
+      margin-top: 30px;
+      font-size: 1.5rem;
+    }
+    
+    .input-group {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+    
+    input, select { 
+      margin: 5px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+    
+    table { 
+      margin: auto;
+      border-collapse: collapse;
+      width: 100%;
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    
+    th { 
+      background: #004080;
+      color: white;
+      padding: 12px;
+      font-weight: 700;
+      border: 1px solid #333;
+    }
+    
+    td { 
+      border: 1px solid #ddd;
+      padding: 12px;
+    }
+    
+    tr:hover {
+      background: #f7f9fc;
+    }
+    
+    button { 
+      margin: 3px;
+      padding: 8px 12px;
+      background: #004080;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.3s ease;
+      font-size: 0.9rem;
+    }
+    
+    button:hover {
+      background: #0066cc;
+    }
+    
+    .delete-btn {
+      background: #c0392b;
+    }
+    
+    .delete-btn:hover {
+      background: #a93226;
+    }
+    
+    .toggle-btn {
+      background: #27ae60;
+    }
+    
+    .toggle-btn:hover {
+      background: #229954;
+    }
   </style>
 </head>
 <body>
-  <h1>لوحة إدارة الحجوزات</h1>
+  <header>
+    <h1 id="admin-title">لوحة إدارة الحجوزات</h1>
+    <button class="lang-toggle-btn" id="lang-btn">English</button>
+  </header>
+  
+  <div class="admin-container">
+    <!-- نموذج إضافة حجز جديد -->
+    <h2 id="add-booking-title">إضافة حجز جديد</h2>
+    <div class="input-group">
+      <input type="text" id="new-time" placeholder="اكتب الساعة مثلاً 3:00 مساءً">
+      <select id="new-status">
+        <option value="محجوز">محجوز</option>
+        <option value="متاح">متاح</option>
+      </select>
+      <button onclick="addBooking()" id="add-btn">إضافة</button>
+    </div>
 
-  <!-- نموذج إضافة حجز جديد -->
-  <h2>إضافة حجز جديد</h2>
-  <input type="text" id="new-time" placeholder="اكتب الساعة مثلاً 3:00 مساءً">
-  <select id="new-status">
-    <option value="محجوز">محجوز</option>
-    <option value="متاح">متاح</option>
-  </select>
-  <button onclick="addBooking()">إضافة</button>
-
-  <!-- جدول الحجوزات -->
-  <table>
-    <thead>
-      <tr>
-        <th>الساعة</th>
-        <th>الحالة</th>
-        <th>إجراءات</th>
-      </tr>
-    </thead>
-    <tbody id="booking-table"></tbody>
-  </table>
+    <!-- جدول الحجوزات -->
+    <table>
+      <thead>
+        <tr>
+          <th id="th-time">الساعة</th>
+          <th id="th-status">الحالة</th>
+          <th id="th-actions">إجراءات</th>
+        </tr>
+      </thead>
+      <tbody id="booking-table"></tbody>
+    </table>
+  </div>
 
   <script>
+    // Add event listener to language button
+    const langBtn = document.getElementById("lang-btn");
+    if (langBtn) {
+      langBtn.addEventListener("click", function() {
+        changeLanguage(getCurrentLanguage() === "ar" ? "en" : "ar");
+      });
+    }
+    
+    // Initialize page direction
+    updatePageDirection();
+    
+    // Update language button
+    const langBtn = document.querySelector(".lang-toggle-btn");
+    if (langBtn) {
+      langBtn.textContent = getCurrentLanguage() === "ar" ? "English" : "العربية";
+    }
+    
+    // Update texts
+    function updateAdminTexts() {
+      const lang = getCurrentLanguage();
+      
+      document.getElementById("page-title").textContent = t("adminTitle");
+      document.getElementById("admin-title").textContent = t("adminTitle");
+      document.getElementById("add-booking-title").textContent = t("addNewBooking");
+      document.getElementById("new-time").placeholder = t("enterTime");
+      
+      const statusOptions = document.querySelectorAll("#new-status option");
+      if (statusOptions[0]) statusOptions[0].textContent = t("booked");
+      if (statusOptions[1]) statusOptions[1].textContent = t("available");
+      
+      document.getElementById("add-btn").textContent = t("add");
+      document.getElementById("th-time").textContent = t("hour");
+      document.getElementById("th-status").textContent = t("status");
+      document.getElementById("th-actions").textContent = t("actions");
+      
+      renderTable();
+    }
+    
     // قراءة الحجوزات من LocalStorage
     let bookings = JSON.parse(localStorage.getItem("bookings")) || [];
 
@@ -45,20 +223,69 @@
 
     function renderTable() {
       table.innerHTML = "";
+      const lang = getCurrentLanguage();
+      
       bookings.forEach((b, i) => {
         const row = document.createElement("tr");
         row.innerHTML = `
           <td>${b.time}</td>
           <td>${b.status}</td>
           <td>
-            <button onclick="toggleStatus(${i})">تغيير الحالة</button>
-            <button onclick="editBooking(${i})">تعديل</button>
-            <button onclick="deleteBooking(${i})">إلغاء</button>
+            <button class="toggle-btn" onclick="toggleStatus(${i})">${t("status")}</button>
+            <button onclick="editBooking(${i})">${lang === "ar" ? "تعديل" : "Edit"}</button>
+            <button class="delete-btn" onclick="deleteBooking(${i})">${t("delete")}</button>
           </td>
         `;
         table.appendChild(row);
       });
     }
+
+    // إضافة حجز جديد
+    function addBooking() {
+      const time = document.getElementById("new-time").value;
+      const status = document.getElementById("new-status").value;
+      if (time) {
+        bookings.push({ time, status });
+        localStorage.setItem("bookings", JSON.stringify(bookings));
+        renderTable();
+        document.getElementById("new-time").value = ""; // مسح الحقل بعد الإضافة
+      }
+    }
+
+    // تغيير الحالة
+    function toggleStatus(i) {
+      const lang = getCurrentLanguage();
+      const booked = lang === "ar" ? "محجوز" : "Booked";
+      const available = lang === "ar" ? "متاح" : "Available";
+      
+      bookings[i].status = bookings[i].status === booked ? available : booked;
+      localStorage.setItem("bookings", JSON.stringify(bookings));
+      renderTable();
+    }
+
+    // حذف حجز
+    function deleteBooking(i) {
+      if (confirm(getCurrentLanguage() === "ar" ? "هل تريد حذف هذا الحجز؟" : "Are you sure you want to delete this booking?")) {
+        bookings.splice(i, 1);
+        localStorage.setItem("bookings", JSON.stringify(bookings));
+        renderTable();
+      }
+    }
+
+    // تعديل حجز
+    function editBooking(i) {
+      const newTime = prompt(getCurrentLanguage() === "ar" ? "أدخل الساعة الجديدة:" : "Enter new time:", bookings[i].time);
+      if (newTime !== null) {
+        bookings[i].time = newTime;
+        localStorage.setItem("bookings", JSON.stringify(bookings));
+        renderTable();
+      }
+    }
+
+    // Initialize
+    updateAdminTexts();
+  </script>
+</body>
 
     // إضافة حجز جديد
     function addBooking() {
@@ -91,14 +318,27 @@
       }
     }
 
-    // إلغاء حجز
+    // حذف حجز
     function deleteBooking(i) {
-      bookings.splice(i, 1);
-      localStorage.setItem("bookings", JSON.stringify(bookings));
-      renderTable();
+      if (confirm(getCurrentLanguage() === "ar" ? "هل تريد حذف هذا الحجز؟" : "Are you sure you want to delete this booking?")) {
+        bookings.splice(i, 1);
+        localStorage.setItem("bookings", JSON.stringify(bookings));
+        renderTable();
+      }
     }
 
-    renderTable();
+    // تعديل حجز
+    function editBooking(i) {
+      const newTime = prompt(getCurrentLanguage() === "ar" ? "أدخل الساعة الجديدة:" : "Enter new time:", bookings[i].time);
+      if (newTime !== null) {
+        bookings[i].time = newTime;
+        localStorage.setItem("bookings", JSON.stringify(bookings));
+        renderTable();
+      }
+    }
+
+    // Initialize
+    updateAdminTexts();
   </script>
 </body>
 </html>

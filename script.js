@@ -1,4 +1,88 @@
 const bookings = JSON.parse(localStorage.getItem("bookings")) || {};
+
+// Language Toggle Function
+function toggleLanguage() {
+  const currentLang = getCurrentLanguage();
+  const newLang = currentLang === "ar" ? "en" : "ar";
+  changeLanguage(newLang);
+}
+
+// Initialize translations on page load
+function initializeTranslations() {
+  const lang = getCurrentLanguage();
+  
+  // Update page direction
+  updatePageDirection();
+  
+  // Update page title
+  const pageTitle = document.getElementById("page-title");
+  if (pageTitle) {
+    pageTitle.textContent = lang === "ar" ? "جدول الحجوزات" : "Booking Schedule";
+  }
+  
+  // Update language toggle button
+  const langBtn = document.getElementById("lang-toggle-btn");
+  if (langBtn) {
+    langBtn.textContent = lang === "ar" ? "English" : "العربية";
+  }
+  
+  // Update header
+  const headerTitle = document.getElementById("header-title");
+  if (headerTitle) headerTitle.textContent = t("headerTitle");
+  
+  const headerSubtitle = document.getElementById("header-subtitle");
+  if (headerSubtitle) headerSubtitle.textContent = t("headerSubtitle");
+  
+  // Update duration labels
+  const durationLabel = document.getElementById("duration-label");
+  if (durationLabel) durationLabel.textContent = t("bookingDuration");
+  
+  const durationOne = document.getElementById("duration-one");
+  if (durationOne) durationOne.textContent = t("oneHour");
+  
+  const durationTwo = document.getElementById("duration-two");
+  if (durationTwo) durationTwo.textContent = t("twoHours");
+  
+  const durationThree = document.getElementById("duration-three");
+  if (durationThree) durationThree.textContent = t("threeHours");
+  
+  // Update price banner
+  const priceText = document.getElementById("price-text");
+  if (priceText) {
+    priceText.innerHTML = `${t("priceText")} <span class="price-highlight" id="price-amount">${t("priceAmount")}</span> <span id="price-including">${t("priceIncluding")}</span>`;
+  }
+  
+  // Update gallery title
+  const galleryTitle = document.getElementById("gallery-title");
+  if (galleryTitle) galleryTitle.textContent = t("galleryTitle");
+  
+  // Update gallery captions
+  const photostudioCaption = document.querySelector(".photostudio-caption");
+  if (photostudioCaption) photostudioCaption.textContent = t("photostudio");
+  
+  const consultingsessionCaption = document.querySelector(".consultingsession-caption");
+  if (consultingsessionCaption) consultingsessionCaption.textContent = t("consultingSession");
+  
+  const trainingworkshopCaption = document.querySelector(".trainingworkshop-caption");
+  if (trainingworkshopCaption) trainingworkshopCaption.textContent = t("trainingWorkshop");
+  
+  // Update day names
+  const dayLabels = document.querySelectorAll(".day-name");
+  const dayNames = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
+  dayLabels.forEach((label, index) => {
+    label.textContent = t(dayNames[index]);
+  });
+  
+  // Update book button
+  const bookBtn = document.getElementById("book-now-btn");
+  if (bookBtn) bookBtn.textContent = t("bookAndPay");
+  
+  // Re-render calendar and time slots to update with new language
+  renderCalendar();
+  renderTimeSlots();
+  updateSelectionSummary();
+}
+
 // Global resource load error handler: warns developer when images/scripts/styles fail to load
 window.addEventListener("error", (event) => {
   const target = event.target || event.srcElement;
@@ -27,7 +111,6 @@ const nextMonthBtn = document.getElementById("next-month");
 const scheduleGrid = document.getElementById("schedule-grid");
 const timeSlotsSection = document.getElementById("time-slots-section");
 const selectedDateDisplay = document.getElementById("selected-date-display");
-const changeDateBtn = document.getElementById("change-date-btn");
 const summaryText = document.getElementById("selected-summary");
 const bookNowBtn = document.getElementById("book-now-btn");
 const durationRadios = document.querySelectorAll('input[name="duration"]');
@@ -98,18 +181,39 @@ function getSelectedSlots() {
 }
 
 function formatMonthYear(date) {
-  return date.toLocaleDateString("ar-KW", {
-    month: "long",
-    year: "numeric",
-  });
+  const month = date.getMonth() + 1;
+  const year = date.getFullYear();
+  const lang = getCurrentLanguage();
+  
+  if (lang === "ar") {
+    return `الشهر ${month}, ${year}`;
+  } else {
+    const monthNames = ["January", "February", "March", "April", "May", "June",
+                        "July", "August", "September", "October", "November", "December"];
+    return `${monthNames[date.getMonth()]} ${year}`;
+  }
 }
 
 function formatTodayIndicator() {
   const today = new Date();
-  return today.toLocaleDateString("ar-KW", {
-    weekday: "long",
-    day: "numeric",
+  const lang = getCurrentLanguage();
+  const dayIndex = today.getDay();
+  const dayNames = [
+    lang === "ar" ? "الأحد" : "Sunday",
+    lang === "ar" ? "الاثنين" : "Monday",
+    lang === "ar" ? "الثلاثاء" : "Tuesday",
+    lang === "ar" ? "الأربعاء" : "Wednesday",
+    lang === "ar" ? "الخميس" : "Thursday",
+    lang === "ar" ? "الجمعة" : "Friday",
+    lang === "ar" ? "السبت" : "Saturday"
+  ];
+  
+  const dateFormatter = new Intl.DateTimeFormat(lang === "ar" ? "ar-KW" : "en-US", {
+    day: "numeric"
   });
+  
+  const day = dateFormatter.format(today);
+  return `${t("today")} ${dayNames[dayIndex]}, ${day}`;
 }
 
 function updateWorkflow() {
@@ -146,12 +250,42 @@ function showTimeSlots() {
 
 function formatDateDisplay(dateString) {
   const date = new Date(dateString);
-  return date.toLocaleDateString("ar-KW", {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
+  const lang = getCurrentLanguage();
+  
+  const dayIndex = date.getDay();
+  const dayNames = [
+    lang === "ar" ? "الأحد" : "Sunday",
+    lang === "ar" ? "الاثنين" : "Monday",
+    lang === "ar" ? "الثلاثاء" : "Tuesday",
+    lang === "ar" ? "الأربعاء" : "Wednesday",
+    lang === "ar" ? "الخميس" : "Thursday",
+    lang === "ar" ? "الجمعة" : "Friday",
+    lang === "ar" ? "السبت" : "Saturday"
+  ];
+  
+  const monthNames = [
+    lang === "ar" ? "يناير" : "January",
+    lang === "ar" ? "فبراير" : "February",
+    lang === "ar" ? "مارس" : "March",
+    lang === "ar" ? "أبريل" : "April",
+    lang === "ar" ? "مايو" : "May",
+    lang === "ar" ? "يونيو" : "June",
+    lang === "ar" ? "يوليو" : "July",
+    lang === "ar" ? "أغسطس" : "August",
+    lang === "ar" ? "سبتمبر" : "September",
+    lang === "ar" ? "أكتوبر" : "October",
+    lang === "ar" ? "نوفمبر" : "November",
+    lang === "ar" ? "ديسمبر" : "December"
+  ];
+  
+  const dayName = dayNames[dayIndex];
+  const monthName = monthNames[date.getMonth()];
+  const dayNum = date.getDate();
+  const year = date.getFullYear();
+  
+  return lang === "ar" 
+    ? `${dayName}، ${dayNum} ${monthName} ${year}`
+    : `${dayName}, ${monthName} ${dayNum}, ${year}`;
 }
 
 function dateToString(date) {
@@ -257,7 +391,7 @@ function renderTimeSlots() {
   }
 
   if (timeSlotsSection) timeSlotsSection.style.display = "block";
-  if (selectedDateDisplay) selectedDateDisplay.textContent = `الأوقات المتاحة: ${formatDateDisplay(selectedDate)}`;
+  if (selectedDateDisplay) selectedDateDisplay.textContent = `${t("availableTimes")}: ${formatDateDisplay(selectedDate)}`;
 
   const bookedSlots = getBookedSlots(selectedDate);
   const selectedSlots = getSelectedSlots();
@@ -322,14 +456,23 @@ function getSelectedSlotsForStart(startSlot, duration) {
 
 function updateSelectionSummary() {
   if (!selectedStart) {
-    if (summaryText) summaryText.textContent = "حدد اليوم ثم اختر توقيتًا لبدء الحجز.";
+    if (summaryText) summaryText.textContent = t("selectDateAndTime");
     if (bookNowBtn) bookNowBtn.disabled = true;
     return;
   }
 
   const displayDate = formatDateDisplay(selectedDate);
-  const durationText = selectedDuration === 1 ? "ساعة" : selectedDuration === 2 ? "ساعتان" : "ثلاث ساعات";
-  if (summaryText) summaryText.textContent = `التاريخ: ${displayDate} | يبدأ عند: ${formatTime(parseTimeKey(selectedStart))} | المدة: ${durationText}`;
+  const durationText = selectedDuration === 1 
+    ? t("durationOneHour")
+    : t("durationHours", { count: selectedDuration });
+  
+  const selectedInfoTemplate = t("selectedInfo");
+  const summaryContent = selectedInfoTemplate
+    .replace("{date}", displayDate)
+    .replace("{time}", formatTime(parseTimeKey(selectedStart)))
+    .replace("{duration}", durationText);
+  
+  if (summaryText) summaryText.textContent = summaryContent;
   if (bookNowBtn) bookNowBtn.disabled = false;
 }
 
@@ -342,12 +485,17 @@ function bookNow() {
     alert("يجب اختيار تاريخ ووقت ومدة الحجز أولاً.");
     return;
   }
-  const durationText = selectedDuration === 1 ? "ساعة" : `${selectedDuration} ساعات`;
-  const message = `السلام عليكم، ممكن أحجز الساعة ${formatTime(parseTimeKey(selectedStart))} ولمدة ${durationText}`;
-  const encodedText = encodeURIComponent(message);
-  const whatsappUrl = `https://wa.me/96550933933?text=${encodedText}`;
-
-  window.open(whatsappUrl, "_blank");
+  
+  // Redirect to payment page with booking details
+  const startTime = formatTime(parseTimeKey(selectedStart));
+  const displayDate = formatDateDisplay(selectedDate);
+  
+  const params = new URLSearchParams();
+  params.append("start", startTime);
+  params.append("date", displayDate);
+  params.append("hours", selectedDuration);
+  
+  window.location.href = `payment.html?${params.toString()}`;
 }
 
 function previousMonth() {
@@ -361,6 +509,9 @@ function nextMonth() {
 }
 
 function initialize() {
+  // Initialize translations
+  initializeTranslations();
+  
   const today = new Date().toISOString().slice(0, 10);
   selectedDate = today;
   currentMonth = new Date();
@@ -372,15 +523,6 @@ function initialize() {
 
   if (prevMonthBtn) prevMonthBtn.addEventListener("click", previousMonth);
   if (nextMonthBtn) nextMonthBtn.addEventListener("click", nextMonth);
-  
-  if (changeDateBtn) changeDateBtn.addEventListener("click", () => {
-    selectedDate = "";
-    selectedStart = "";
-    renderCalendar();
-    updateSelectionSummary();
-    updateWorkflow();
-    showCalendar();
-  });
 
   durationRadios.forEach(radio => {
     if (radio) radio.addEventListener("change", () => {

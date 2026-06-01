@@ -3,32 +3,50 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>جدول الحجوزات</title>
+    <title id="page-title">جدول الحجوزات</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="icon" href="banner.png" type="image/png">
+    <script src="translations.js"></script>
   </head>
   <body>
     <header>
+      <div class="header-top">
+        <h1 id="header-title">جدول أوقات الحجوزات</h1>
+        <button id="lang-toggle-btn" class="lang-toggle-btn" onclick="toggleLanguage()">English</button>
+      </div>
       <img src="banner.png" alt="صورة الحجوزات" class="banner">
-      <h1>جدول أوقات الحجوزات</h1>
-      <p>اختر الوقت المناسب لك من الجدول أدناه</p>
+      <p id="header-subtitle">اختر الوقت المناسب لك من الجدول أدناه</p>
     </header>
 
     <section class="booking-panel">
       <div class="booking-controls">
         <div class="duration-select">
-          <span>مدة الحجز</span>
-          <label><input type="radio" name="duration" value="1" checked> ساعة</label>
-          <label><input type="radio" name="duration" value="2"> ساعتان</label>
-          <label><input type="radio" name="duration" value="3"> ثلاث ساعات</label>
+          <span class="duration-label" id="duration-label">مدة الحجز</span>
+          <div class="duration-options">
+            <label class="duration-box">
+              <input type="radio" name="duration" value="1" checked>
+              <span class="checkmark"></span>
+              <span class="option-text duration-one" id="duration-one">ساعة</span>
+            </label>
+            <label class="duration-box">
+              <input type="radio" name="duration" value="2">
+              <span class="checkmark"></span>
+              <span class="option-text duration-two" id="duration-two">ساعتان</span>
+            </label>
+            <label class="duration-box">
+              <input type="radio" name="duration" value="3">
+              <span class="checkmark"></span>
+              <span class="option-text duration-three" id="duration-three">ثلاث ساعات</span>
+            </label>
+          </div>
         </div>
       </div>
 
       <div class="schedule-section">
         <div class="calendar-wrapper">
           <div class="price-banner" role="status" aria-live="polite">
-            قيمة الساعة الواحدة للحجز: 6 د.ك شاملة القهوة وقوارير الماء
+            <div id="price-text">One hour booking: <span class="price-highlight" id="price-amount">6 KWD</span> <span id="price-including">including coffee and water bottles.</span></div>
           </div>
 
           <div class="calendar-header">
@@ -42,13 +60,13 @@
           
           <div class="calendar-container">
             <div class="day-names">
-              <div class="day-name">الأحد</div>
-              <div class="day-name">الاثنين</div>
-              <div class="day-name">الثلاثاء</div>
-              <div class="day-name">الأربعاء</div>
-              <div class="day-name">الخميس</div>
-              <div class="day-name">الجمعة</div>
-              <div class="day-name">السبت</div>
+              <div class="day-name sunday-label">الأحد</div>
+              <div class="day-name monday-label">الاثنين</div>
+              <div class="day-name tuesday-label">الثلاثاء</div>
+              <div class="day-name wednesday-label">الأربعاء</div>
+              <div class="day-name thursday-label">الخميس</div>
+              <div class="day-name friday-label">الجمعة</div>
+              <div class="day-name saturday-label">السبت</div>
             </div>
             <div class="calendar-grid" id="calendar-grid"></div>
           </div>
@@ -56,8 +74,7 @@
 
         <div id="time-slots-section" class="time-slots-section" style="display: none;">
           <div class="time-slots-header">
-            <h3 id="selected-date-display">الأوقات المتاحة</h3>
-            <button id="change-date-btn" class="change-date-btn">غير التاريخ</button>
+            <h3 id="selected-date-display" class="available-times-label">الأوقات المتاحة</h3>
           </div>
           <div class="schedule-grid" id="schedule-grid"></div>
         </div>
@@ -71,19 +88,19 @@
 
     <!-- قسم الصور -->
     <section class="gallery">
-      <h2>مميزات المكتب</h2>
+      <h2 id="gallery-title">مميزات المكتب</h2>
       <div class="gallery-container">
         <div class="gallery-item">
           <img src="place1.png" alt="صورة 1" class="gallery-img">
-          <p class="gallery-caption">استيديو تصوير</p>
+          <p class="gallery-caption photostudio-caption">استيديو تصوير</p>
         </div>
         <div class="gallery-item">
           <img src="place2.png" alt="صورة 2" class="gallery-img">
-          <p class="gallery-caption">جلسة استشارية</p>
+          <p class="gallery-caption consultingsession-caption">جلسة استشارية</p>
         </div>
         <div class="gallery-item">
           <img src="place3.png" alt="صورة 3" class="gallery-img">
-          <p class="gallery-caption">ورشة تعلمية</p>
+          <p class="gallery-caption trainingworkshop-caption">ورشة تعلمية</p>
         </div>
       </div>
     </section>
