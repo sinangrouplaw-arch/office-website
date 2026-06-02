@@ -1,4 +1,8 @@
-const bookings = JSON.parse(localStorage.getItem("bookings")) || {};
+let bookings = {};
+
+function loadBookingsFromStorage() {
+  bookings = JSON.parse(localStorage.getItem("bookings")) || {};
+}
 
 // Language Toggle Function
 function toggleLanguage() {
@@ -512,6 +516,7 @@ function initialize() {
   // Initialize translations
   initializeTranslations();
   
+  loadBookingsFromStorage();
   const today = new Date().toISOString().slice(0, 10);
   selectedDate = today;
   currentMonth = new Date();
@@ -520,6 +525,24 @@ function initialize() {
   renderTimeSlots();
   updateSelectionSummary();
   updateWorkflow();
+
+  window.addEventListener("pageshow", () => {
+    loadBookingsFromStorage();
+    renderCalendar();
+    renderTimeSlots();
+    updateSelectionSummary();
+    updateWorkflow();
+  });
+
+  window.addEventListener("storage", (event) => {
+    if (event.key === "bookings") {
+      loadBookingsFromStorage();
+      renderCalendar();
+      renderTimeSlots();
+      updateSelectionSummary();
+      updateWorkflow();
+    }
+  });
 
   if (prevMonthBtn) prevMonthBtn.addEventListener("click", previousMonth);
   if (nextMonthBtn) nextMonthBtn.addEventListener("click", nextMonth);

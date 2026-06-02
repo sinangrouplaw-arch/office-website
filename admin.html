@@ -7,338 +7,779 @@
   <link rel="icon" href="banner.png" type="image/png">
   <script src="translations.js"></script>
   <style>
-    body { 
-      font-family: 'Tajawal', Tahoma, sans-serif; 
-      direction: rtl; 
+    body {
+      font-family: 'Tajawal', Tahoma, sans-serif;
+      direction: rtl;
       text-align: center;
       background: #f4f6f9;
       margin: 0;
-      padding: 20px;
+      padding: 0;
     }
-    
+
     header {
       background: #004080;
       color: white;
-      padding: 20px;
-      border-radius: 8px;
-      margin-bottom: 30px;
+      padding: 18px 24px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      gap: 20px;
+      gap: 16px;
     }
-    
+
     header h1 {
       margin: 0;
-      flex: 1;
-      min-width: 200px;
+      font-size: 1.8rem;
     }
-    
+
     .lang-toggle-btn {
       background: #ff9800;
       color: white;
       border: none;
       padding: 10px 18px;
-      border-radius: 6px;
+      border-radius: 8px;
       font-weight: 700;
       cursor: pointer;
       font-size: 0.95rem;
-      transition: all 0.3s ease;
-      white-space: nowrap;
     }
-    
-    .lang-toggle-btn:hover {
-      background: #f57c00;
-      transform: scale(1.05);
-    }
-    
+
     .admin-container {
-      max-width: 900px;
-      margin: 0 auto;
+      max-width: 1100px;
+      margin: 24px auto;
+      padding: 0 16px 24px;
     }
-    
-    h2 { 
-      color: #004080;
-      margin-top: 30px;
-      font-size: 1.5rem;
-    }
-    
-    .input-group {
+
+    .admin-card {
       background: white;
-      padding: 20px;
-      border-radius: 8px;
-      margin-bottom: 20px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 10px;
-      align-items: center;
+      border-radius: 20px;
+      box-shadow: 0 18px 45px rgba(0,0,0,0.08);
+      padding: 28px;
+      margin-bottom: 24px;
     }
-    
-    input, select { 
-      margin: 5px;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      max-width: 420px;
+      margin: 0 auto 10px;
+    }
+
+    .input-group input {
+      padding: 14px 16px;
+      border: 1px solid #d7dbe2;
+      border-radius: 12px;
       font-size: 1rem;
     }
-    
-    table { 
-      margin: auto;
-      border-collapse: collapse;
-      width: 100%;
-      background: white;
-      border-radius: 8px;
-      overflow: hidden;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-    
-    th { 
-      background: #004080;
-      color: white;
-      padding: 12px;
-      font-weight: 700;
-      border: 1px solid #333;
-    }
-    
-    td { 
-      border: 1px solid #ddd;
-      padding: 12px;
-    }
-    
-    tr:hover {
-      background: #f7f9fc;
-    }
-    
-    button { 
-      margin: 3px;
-      padding: 8px 12px;
-      background: #004080;
-      color: white;
+
+    .input-group button {
+      padding: 14px 18px;
       border: none;
-      border-radius: 6px;
+      border-radius: 12px;
+      background: #004080;
+      color: white;
+      font-weight: 700;
       cursor: pointer;
-      font-weight: 600;
-      transition: background 0.3s ease;
-      font-size: 0.9rem;
+      font-size: 1rem;
     }
-    
-    button:hover {
+
+    .input-group button:hover {
       background: #0066cc;
     }
-    
-    .delete-btn {
-      background: #c0392b;
+
+    .admin-login-hint {
+      color: #555;
+      margin-top: 8px;
+      font-size: 0.95rem;
     }
-    
-    .delete-btn:hover {
-      background: #a93226;
+
+    .admin-panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
     }
-    
-    .toggle-btn {
+
+    .admin-panel-header h2 {
+      margin: 0;
+      color: #004080;
+      font-size: 1.9rem;
+    }
+
+    .admin-panel-header p {
+      margin: 0;
+      color: #334155;
+    }
+
+    .secondary-btn {
+      padding: 10px 16px;
+      border: 1px solid #d6e4f5;
+      border-radius: 12px;
+      background: #f0f4f8;
+      color: #004080;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .admin-controls {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      align-items: start;
+      margin: 26px 0;
+    }
+
+    .admin-controls label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 700;
+      color: #1f305d;
+      text-align: right;
+    }
+
+    .admin-controls input[type="date"] {
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: 12px;
+      border: 1px solid #d7dbe2;
+      font-size: 1rem;
+    }
+
+    .duration-options-admin {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+    }
+
+    .admin-duration {
+      padding: 12px 18px;
+      border: 1px solid #d7dbe2;
+      border-radius: 12px;
+      background: white;
+      color: #1f305d;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .admin-duration.active {
+      background: #004080;
+      color: white;
+      border-color: #004080;
+    }
+
+    .admin-slots-section {
+      margin-top: 16px;
+    }
+
+    .admin-slots-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .slot-card {
+      padding: 14px 12px;
+      border-radius: 14px;
+      font-weight: 700;
+      border: 1px solid transparent;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .slot-card:hover:not(.slot-booked) {
+      transform: translateY(-2px);
+    }
+
+    .slot-available {
+      background: #e9f7ee;
+      color: #1a7d3c;
+      border-color: #bde9c8;
+    }
+
+    .slot-selected {
+      background: #d6e9ff;
+      color: #11467a;
+      border-color: #4a90e2;
+    }
+
+    .slot-booked {
+      background: #fde2e2;
+      color: #b02a37;
+      border-color: #f5c2c7;
+      cursor: not-allowed;
+    }
+
+    .admin-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      margin: 24px 0;
+    }
+
+    .confirm-btn {
+      padding: 14px 18px;
+      width: 100%;
+      max-width: 320px;
+      border: none;
+      border-radius: 14px;
       background: #27ae60;
+      color: white;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
     }
-    
-    .toggle-btn:hover {
-      background: #229954;
+
+    .confirm-btn:disabled {
+      background: #94d3a2;
+      cursor: not-allowed;
+    }
+
+    .admin-bookings-table table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+    }
+
+    .admin-bookings-table th,
+    .admin-bookings-table td {
+      padding: 12px 14px;
+      border: 1px solid #e5e7eb;
+      text-align: right;
+    }
+
+    .admin-bookings-table th {
+      background: #f0f4f8;
+      color: #004080;
+    }
+
+    .admin-bookings-table td {
+      color: #334155;
+    }
+
+    .admin-bookings-table tr:hover {
+      background: #f7f9fc;
+    }
+
+    .admin-note {
+      margin-top: 12px;
+      color: #555;
+    }
+
+    @media (max-width: 720px) {
+      .admin-controls {
+        grid-template-columns: 1fr;
+      }
+    }
+  .return-home-btn {
+      background: #ff9800;
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 0.95rem;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+    }
+
+    .modal-content {
+      background: white;
+      border-radius: 18px;
+      padding: 24px;
+      width: min(420px, 90%);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.18);
+      text-align: right;
+    }
+
+    .modal-content h3 {
+      margin-top: 0;
+      color: #004080;
+      font-size: 1.4rem;
+    }
+
+    .modal-content p {
+      color: #444;
+      margin: 18px 0;
+      line-height: 1.6;
+    }
+
+    .modal-buttons {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .modal-buttons button {
+      min-width: 110px;
     }
   </style>
 </head>
 <body>
   <header>
     <h1 id="admin-title">لوحة إدارة الحجوزات</h1>
-    <button class="lang-toggle-btn" id="lang-btn">English</button>
-  </header>
-  
-  <div class="admin-container">
-    <!-- نموذج إضافة حجز جديد -->
-    <h2 id="add-booking-title">إضافة حجز جديد</h2>
-    <div class="input-group">
-      <input type="text" id="new-time" placeholder="اكتب الساعة مثلاً 3:00 مساءً">
-      <select id="new-status">
-        <option value="محجوز">محجوز</option>
-        <option value="متاح">متاح</option>
-      </select>
-      <button onclick="addBooking()" id="add-btn">إضافة</button>
+    <div class="header-actions">
+      <a href="index.html" class="return-home-btn">العودة للرئيسية</a>
+      <button class="lang-toggle-btn" id="lang-btn" type="button">English</button>
     </div>
+  </header>
 
-    <!-- جدول الحجوزات -->
-    <table>
-      <thead>
-        <tr>
-          <th id="th-time">الساعة</th>
-          <th id="th-status">الحالة</th>
-          <th id="th-actions">إجراءات</th>
-        </tr>
-      </thead>
-      <tbody id="booking-table"></tbody>
-    </table>
+  <div class="admin-container">
+    <section class="admin-card" id="login-card">
+      <h2>تسجيل دخول الأدمن</h2>
+      <div class="input-group">
+        <input id="username-input" type="text" placeholder="اسم المستخدم" autocomplete="username">
+        <input id="password-input" type="password" placeholder="رمز الدخول" autocomplete="current-password">
+        <button id="login-btn" type="button">دخول</button>
+      </div>
+    </section>
+
+    <section class="admin-card" id="panel-card" style="display:none;">
+      <div class="admin-panel-header">
+        <div>
+          <h2>لوحة الأدمن</h2>
+          <p id="admin-welcome">يمكنك تأكيد الأوقات وإظهارها كمحجوزة للمستخدمين.</p>
+        </div>
+        <button id="logout-btn" class="secondary-btn" type="button">خروج</button>
+      </div>
+
+      <div class="admin-controls">
+        <div>
+          <label for="admin-date">اختر التاريخ</label>
+          <input type="date" id="admin-date">
+        </div>
+        <div>
+          <label>اختر المدة</label>
+          <div class="duration-options-admin">
+            <button class="admin-duration active" type="button" data-duration="1">ساعة</button>
+            <button class="admin-duration" type="button" data-duration="2">ساعتان</button>
+            <button class="admin-duration" type="button" data-duration="3">ثلاث ساعات</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="admin-slots-section">
+        <h3>أوقات يوم <span id="admin-selected-date-label"></span></h3>
+        <div class="admin-slots-grid" id="admin-slots-grid"></div>
+      </div>
+
+      <div class="admin-actions">
+        <button id="admin-confirm-btn" class="confirm-btn" type="button" disabled>تأكيد الحجز</button>
+        <div id="admin-selected-summary" class="admin-note">اختر أوقاتًا متاحة ثم اضغط تأكيد الحجز.</div>
+      </div>
+
+      <div class="admin-bookings-table">
+        <h3>الحجوزات الحالية</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>التاريخ</th>
+              <th>الوقت</th>
+              <th>مدة الحجز</th>
+              <th>الحالة</th>
+              <th>إجراءات</th>
+            </tr>
+          </thead>
+          <tbody id="admin-bookings-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <div id="cancel-modal" class="modal" style="display:none;">
+      <div class="modal-content">
+        <h3>تأكيد إلغاء الحجز</h3>
+        <p id="cancel-modal-text">هل تريد بالتأكيد إلغاء هذا الحجز؟</p>
+        <div class="modal-buttons">
+          <button id="cancel-no-btn" class="secondary-btn" type="button">لا</button>
+          <button id="cancel-yes-btn" class="confirm-btn" type="button">نعم، إلغاء</button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <script>
-    // Add event listener to language button
+    const ADMIN_USERNAMES = ["forsah", "Forsah", "FORSAH"];
+    const ADMIN_PASSWORD = "studio123";
+    const BOOKINGS_KEY = "bookings";
+
+    const loginCard = document.getElementById("login-card");
+    const panelCard = document.getElementById("panel-card");
+    const usernameInput = document.getElementById("username-input");
+    const passwordInput = document.getElementById("password-input");
+    const loginBtn = document.getElementById("login-btn");
+    const logoutBtn = document.getElementById("logout-btn");
     const langBtn = document.getElementById("lang-btn");
-    if (langBtn) {
-      langBtn.addEventListener("click", function() {
-        changeLanguage(getCurrentLanguage() === "ar" ? "en" : "ar");
-      });
+
+    const dateInput = document.getElementById("admin-date");
+    const slotsGrid = document.getElementById("admin-slots-grid");
+    const bookingsBody = document.getElementById("admin-bookings-body");
+    const confirmBtn = document.getElementById("admin-confirm-btn");
+    const selectedDateLabel = document.getElementById("admin-selected-date-label");
+    const selectedSummary = document.getElementById("admin-selected-summary");
+    const durationButtons = document.querySelectorAll(".admin-duration");
+
+    const BOOKING_START_MIN = 8 * 60;
+    const BOOKING_END_MIN = 20 * 60;
+    const SLOT_INTERVAL = 30;
+
+    let adminSelectedDate = dateToString(new Date());
+    let adminSelectedSlots = [];
+    let adminSelectedStartSlot = null;
+    let adminSelectedDuration = 1;
+    let adminBookings = {};
+
+    function dateToString(date) {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const day = String(date.getDate()).padStart(2, "0");
+      return `${year}-${month}-${day}`;
     }
-    
-    // Initialize page direction
-    updatePageDirection();
-    
-    // Update language button
-    const langBtn = document.querySelector(".lang-toggle-btn");
-    if (langBtn) {
+
+    function formatTime(minutes) {
+      const hour = Math.floor(minutes / 60);
+      const minute = minutes % 60;
+      const minuteText = minute === 0 ? "00" : "30";
+      let label = "صباحًا";
+      if (hour === 12) label = "ظهرًا";
+      else if (hour > 12) label = "مساءً";
+      const displayHour = hour % 12 === 0 ? 12 : hour % 12;
+      return `${displayHour}:${minuteText} ${label}`;
+    }
+
+    function formatDateDisplay(dateString) {
+      const date = new Date(dateString);
+      const dayNames = ["الأحد","الاثنين","الثلاثاء","الأربعاء","الخميس","الجمعة","السبت"];
+      const monthNames = ["يناير","فبراير","مارس","أبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"];
+      const dayName = dayNames[date.getDay()];
+      const monthName = monthNames[date.getMonth()];
+      return `${dayName}، ${date.getDate()} ${monthName} ${date.getFullYear()}`;
+    }
+
+    function getTimeKey(minutes) {
+      const hour = Math.floor(minutes / 60);
+      const minute = minutes % 60;
+      return `${String(hour).padStart(2, "0")}:${String(minute).padStart(2, "0")}`;
+    }
+
+    function getSlots() {
+      const slots = [];
+      for (let minutes = BOOKING_START_MIN; minutes < BOOKING_END_MIN; minutes += SLOT_INTERVAL) {
+        slots.push(getTimeKey(minutes));
+      }
+      return slots;
+    }
+
+    function getBookings() {
+      return JSON.parse(localStorage.getItem(BOOKINGS_KEY)) || {};
+    }
+
+    function saveBookings() {
+      localStorage.setItem(BOOKINGS_KEY, JSON.stringify(adminBookings));
+    }
+
+    function updateLangButton() {
       langBtn.textContent = getCurrentLanguage() === "ar" ? "English" : "العربية";
     }
-    
-    // Update texts
-    function updateAdminTexts() {
-      const lang = getCurrentLanguage();
-      
-      document.getElementById("page-title").textContent = t("adminTitle");
-      document.getElementById("admin-title").textContent = t("adminTitle");
-      document.getElementById("add-booking-title").textContent = t("addNewBooking");
-      document.getElementById("new-time").placeholder = t("enterTime");
-      
-      const statusOptions = document.querySelectorAll("#new-status option");
-      if (statusOptions[0]) statusOptions[0].textContent = t("booked");
-      if (statusOptions[1]) statusOptions[1].textContent = t("available");
-      
-      document.getElementById("add-btn").textContent = t("add");
-      document.getElementById("th-time").textContent = t("hour");
-      document.getElementById("th-status").textContent = t("status");
-      document.getElementById("th-actions").textContent = t("actions");
-      
-      renderTable();
+
+    function handleAdminLogin() {
+      const username = usernameInput.value.trim();
+      const password = passwordInput.value.trim();
+      const usernameValid = ADMIN_USERNAMES.includes(username);
+      if (usernameValid && password === ADMIN_PASSWORD) {
+        loginCard.style.display = "none";
+        panelCard.style.display = "block";
+        adminBookings = getBookings();
+        renderSlots();
+        renderBookingTable();
+        updateSummary();
+      } else {
+        alert("اسم المستخدم أو رمز الدخول غير صحيح.");
+      }
     }
-    
-    // قراءة الحجوزات من LocalStorage
-    let bookings = JSON.parse(localStorage.getItem("bookings")) || [];
 
-    const table = document.getElementById("booking-table");
+    function handleLogout() {
+      loginCard.style.display = "block";
+      panelCard.style.display = "none";
+      usernameInput.value = "";
+      passwordInput.value = "";
+      adminSelectedSlots = [];
+    }
 
-    function renderTable() {
-      table.innerHTML = "";
-      const lang = getCurrentLanguage();
-      
-      bookings.forEach((b, i) => {
-        const row = document.createElement("tr");
-        row.innerHTML = `
-          <td>${b.time}</td>
-          <td>${b.status}</td>
-          <td>
-            <button class="toggle-btn" onclick="toggleStatus(${i})">${t("status")}</button>
-            <button onclick="editBooking(${i})">${lang === "ar" ? "تعديل" : "Edit"}</button>
-            <button class="delete-btn" onclick="deleteBooking(${i})">${t("delete")}</button>
-          </td>
-        `;
-        table.appendChild(row);
+    function renderSlots() {
+      slotsGrid.innerHTML = "";
+      selectedDateLabel.textContent = formatDateDisplay(adminSelectedDate);
+      adminBookings = getBookings();
+      const bookedSlots = adminBookings[adminSelectedDate] || [];
+
+      getSlots().forEach(slot => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "slot-card";
+        button.textContent = formatTime(parseTimeKey(slot));
+
+        if (bookedSlots.includes(slot)) {
+          button.classList.add("slot-booked");
+          button.disabled = true;
+        } else {
+          button.classList.add("slot-available");
+          button.addEventListener("click", () => toggleSlotSelection(slot));
+        }
+
+        if (adminSelectedSlots.includes(slot)) {
+          button.classList.add("slot-selected");
+        }
+
+        slotsGrid.appendChild(button);
       });
     }
 
-    // إضافة حجز جديد
-    function addBooking() {
-      const time = document.getElementById("new-time").value;
-      const status = document.getElementById("new-status").value;
-      if (time) {
-        bookings.push({ time, status });
-        localStorage.setItem("bookings", JSON.stringify(bookings));
-        renderTable();
-        document.getElementById("new-time").value = ""; // مسح الحقل بعد الإضافة
+    function parseTimeKey(timeKey) {
+      const [hour, minute] = timeKey.split(":").map(Number);
+      return hour * 60 + minute;
+    }
+
+    function getSelectedRange(startSlot, duration) {
+      const startMinutes = parseTimeKey(startSlot);
+      const count = duration * 2;
+      const selected = [];
+      for (let i = 0; i < count; i++) {
+        const minutes = startMinutes + i * SLOT_INTERVAL;
+        if (minutes >= BOOKING_END_MIN) return [];
+        selected.push(getTimeKey(minutes));
       }
+      return selected;
     }
 
-    // تغيير الحالة
-    function toggleStatus(i) {
-      const lang = getCurrentLanguage();
-      const booked = lang === "ar" ? "محجوز" : "Booked";
-      const available = lang === "ar" ? "متاح" : "Available";
-      
-      bookings[i].status = bookings[i].status === booked ? available : booked;
-      localStorage.setItem("bookings", JSON.stringify(bookings));
-      renderTable();
+    function groupBookedRanges(slots) {
+      const sorted = [...slots].sort();
+      const ranges = [];
+      let currentRange = null;
+
+      sorted.forEach(slot => {
+        if (!currentRange) {
+          currentRange = { start: slot, end: slot, count: 1 };
+          return;
+        }
+
+        const previousEndMinutes = parseTimeKey(currentRange.end);
+        const currentStartMinutes = parseTimeKey(slot);
+        if (currentStartMinutes === previousEndMinutes + SLOT_INTERVAL) {
+          currentRange.end = slot;
+          currentRange.count += 1;
+        } else {
+          ranges.push(currentRange);
+          currentRange = { start: slot, end: slot, count: 1 };
+        }
+      });
+
+      if (currentRange) ranges.push(currentRange);
+      return ranges;
     }
 
-    // حذف حجز
-    function deleteBooking(i) {
-      if (confirm(getCurrentLanguage() === "ar" ? "هل تريد حذف هذا الحجز؟" : "Are you sure you want to delete this booking?")) {
-        bookings.splice(i, 1);
-        localStorage.setItem("bookings", JSON.stringify(bookings));
-        renderTable();
+    function getRangeSlots(startSlot, endSlot) {
+      const slots = [];
+      let minutes = parseTimeKey(startSlot);
+      const endMinutes = parseTimeKey(endSlot);
+      while (minutes <= endMinutes) {
+        slots.push(getTimeKey(minutes));
+        minutes += SLOT_INTERVAL;
       }
+      return slots;
     }
 
-    // تعديل حجز
-    function editBooking(i) {
-      const newTime = prompt(getCurrentLanguage() === "ar" ? "أدخل الساعة الجديدة:" : "Enter new time:", bookings[i].time);
-      if (newTime !== null) {
-        bookings[i].time = newTime;
-        localStorage.setItem("bookings", JSON.stringify(bookings));
-        renderTable();
+    function formatDurationText(count) {
+      if (count === 1) return "نصف ساعة";
+      if (count === 2) return "ساعة";
+      return `${count / 2} ساعات`;
+    }
+
+    function toggleSlotSelection(slot) {
+      const range = getSelectedRange(slot, adminSelectedDuration);
+      if (range.length === 0) {
+        alert("المدة المختارة تتجاوز ساعات العمل. اختر توقيتًا أبكر.");
+        return;
       }
-    }
 
-    // Initialize
-    updateAdminTexts();
-  </script>
-</body>
-
-    // إضافة حجز جديد
-    function addBooking() {
-      const time = document.getElementById("new-time").value;
-      const status = document.getElementById("new-status").value;
-      if (time) {
-        bookings.push({ time, status });
-        localStorage.setItem("bookings", JSON.stringify(bookings));
-        renderTable();
-        document.getElementById("new-time").value = ""; // مسح الحقل بعد الإضافة
+      const bookedSlots = adminBookings[adminSelectedDate] || [];
+      const blocked = range.some(s => bookedSlots.includes(s));
+      if (blocked) {
+        alert("بعض الأوقات في هذه الفترة محجوزة بالفعل. اختر وقتًا آخر.");
+        return;
       }
-    }
 
-    // تغيير الحالة
-    function toggleStatus(i) {
-      bookings[i].status = bookings[i].status === "محجوز" ? "متاح" : "محجوز";
-      localStorage.setItem("bookings", JSON.stringify(bookings));
-      renderTable();
-    }
-
-    // تعديل حجز
-    function editBooking(i) {
-      const newTime = prompt("أدخل الساعة الجديدة:", bookings[i].time);
-      const newStatus = prompt("أدخل الحالة الجديدة (محجوز/متاح):", bookings[i].status);
-      if (newTime && newStatus) {
-        bookings[i].time = newTime;
-        bookings[i].status = newStatus;
-        localStorage.setItem("bookings", JSON.stringify(bookings));
-        renderTable();
+      if (adminSelectedStartSlot === slot) {
+        adminSelectedStartSlot = null;
+        adminSelectedSlots = [];
+      } else {
+        adminSelectedStartSlot = slot;
+        adminSelectedSlots = range;
       }
+
+      renderSlots();
+      updateSummary();
     }
 
-    // حذف حجز
-    function deleteBooking(i) {
-      if (confirm(getCurrentLanguage() === "ar" ? "هل تريد حذف هذا الحجز؟" : "Are you sure you want to delete this booking?")) {
-        bookings.splice(i, 1);
-        localStorage.setItem("bookings", JSON.stringify(bookings));
-        renderTable();
+    function updateSummary() {
+      if (adminSelectedSlots.length === 0) {
+        selectedSummary.textContent = "اختر أوقاتًا متاحة لتأكيد الحجز.";
+        confirmBtn.disabled = true;
+        return;
       }
+
+      const slotsText = adminSelectedSlots
+        .slice()
+        .sort()
+        .map(slot => formatTime(parseTimeKey(slot)))
+        .join(" ، ");
+
+      selectedSummary.textContent = `الأوقات المحددة: ${slotsText}`;
+      confirmBtn.disabled = false;
     }
 
-    // تعديل حجز
-    function editBooking(i) {
-      const newTime = prompt(getCurrentLanguage() === "ar" ? "أدخل الساعة الجديدة:" : "Enter new time:", bookings[i].time);
-      if (newTime !== null) {
-        bookings[i].time = newTime;
-        localStorage.setItem("bookings", JSON.stringify(bookings));
-        renderTable();
+    function confirmBooking() {
+      if (adminSelectedSlots.length === 0) return;
+
+      const dateSlots = adminBookings[adminSelectedDate] || [];
+      const newSlots = [...new Set([...dateSlots, ...adminSelectedSlots])].sort();
+      adminBookings[adminSelectedDate] = newSlots;
+      saveBookings();
+      adminSelectedSlots = [];
+      adminSelectedStartSlot = null;
+      renderSlots();
+      renderBookingTable();
+      updateSummary();
+      alert("تم تأكيد الحجز بنجاح.");
+    }
+
+    function openCancelModal(date, range) {
+      const modal = document.getElementById("cancel-modal");
+      const modalText = document.getElementById("cancel-modal-text");
+      const yesBtn = document.getElementById("cancel-yes-btn");
+      const noBtn = document.getElementById("cancel-no-btn");
+
+      modalText.textContent = `هل تريد بالتأكيد إلغاء الحجز من ${formatTime(parseTimeKey(range.start))} إلى ${formatTime(parseTimeKey(range.end))}؟`;
+      modal.style.display = "flex";
+
+      const cleanup = () => {
+        modal.style.display = "none";
+        yesBtn.onclick = null;
+        noBtn.onclick = null;
+      };
+
+      noBtn.onclick = cleanup;
+      yesBtn.onclick = () => {
+        cancelBookingRange(date, range);
+        cleanup();
+      };
+    }
+
+    function cancelBookingRange(date, range) {
+      const currentSlots = adminBookings[date] || [];
+      const allSlots = getRangeSlots(range.start, range.end);
+      adminBookings[date] = currentSlots.filter(slot => !allSlots.includes(slot));
+      if (adminBookings[date].length === 0) {
+        delete adminBookings[date];
       }
+      saveBookings();
+      renderSlots();
+      renderBookingTable();
     }
 
-    // Initialize
-    updateAdminTexts();
+    function renderBookingTable() {
+      bookingsBody.innerHTML = "";
+      const dates = Object.keys(adminBookings).sort();
+      if (dates.length === 0) {
+        bookingsBody.innerHTML = "<tr><td colspan='5'>لا توجد حجوزات حتى الآن.</td></tr>";
+        return;
+      }
+
+      dates.forEach(date => {
+        const slots = adminBookings[date];
+        if (!slots || slots.length === 0) return;
+        const ranges = groupBookedRanges(slots);
+        ranges.forEach(range => {
+          const row = document.createElement("tr");
+          const dateCell = document.createElement("td");
+          const timeCell = document.createElement("td");
+          const durationCell = document.createElement("td");
+          const statusCell = document.createElement("td");
+          const actionCell = document.createElement("td");
+
+          dateCell.textContent = formatDateDisplay(date);
+          timeCell.textContent = `${formatTime(parseTimeKey(range.start))} - ${formatTime(parseTimeKey(range.end))}`;
+          durationCell.textContent = formatDurationText(range.count);
+          statusCell.textContent = "محجوز";
+          statusCell.style.color = "#b02a37";
+
+          const cancelButton = document.createElement("button");
+          cancelButton.className = "secondary-btn";
+          cancelButton.textContent = "إلغاء الحجز";
+          cancelButton.type = "button";
+          cancelButton.addEventListener("click", () => openCancelModal(date, range));
+
+          actionCell.appendChild(cancelButton);
+          row.appendChild(dateCell);
+          row.appendChild(timeCell);
+          row.appendChild(durationCell);
+          row.appendChild(statusCell);
+          row.appendChild(actionCell);
+          bookingsBody.appendChild(row);
+        });
+      });
+    }
+
+    function initializeAdmin() {
+      updatePageDirection();
+      updateLangButton();
+      adminSelectedDate = dateToString(new Date());
+      dateInput.value = adminSelectedDate;
+      dateInput.min = adminSelectedDate;
+      dateInput.addEventListener("change", () => {
+        adminSelectedDate = dateInput.value;
+        adminSelectedSlots = [];
+        renderSlots();
+        updateSummary();
+      });
+      durationButtons.forEach(button => {
+        button.addEventListener("click", () => {
+          durationButtons.forEach(btn => btn.classList.remove("active"));
+          button.classList.add("active");
+          adminSelectedDuration = Number(button.dataset.duration);
+        });
+      });
+      loginBtn.addEventListener("click", handleAdminLogin);
+      logoutBtn.addEventListener("click", handleLogout);
+      confirmBtn.addEventListener("click", confirmBooking);
+      langBtn.addEventListener("click", () => changeLanguage(getCurrentLanguage() === "ar" ? "en" : "ar"));
+    }
+
+    document.addEventListener("DOMContentLoaded", initializeAdmin);
   </script>
 </body>
 </html>

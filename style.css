@@ -32,9 +32,11 @@ header h1 {
   margin: 0;
   flex: 1;
   min-width: 200px;
+  text-align: center;
 }
 
-.lang-toggle-btn {
+.lang-toggle-btn,
+.admin-gateway {
   background: #ff9800;
   color: white;
   border: none;
@@ -45,6 +47,15 @@ header h1 {
   font-size: 0.95rem;
   transition: all 0.3s ease;
   white-space: nowrap;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.admin-gateway {
+  background: #004080;
+  color: white;
 }
 
 .lang-toggle-btn:hover {
@@ -504,10 +515,9 @@ button:hover {
 }
 
 .calendar-day.booked {
-  background: #ebedf0;
-  color: #999;
-  border-color: #d4d4d8;
-  cursor: not-allowed;
+  background: #fdecea;
+  color: #b02a37;
+  border-color: #f5c2c7;
 }
 
 .calendar-day.disabled {
@@ -577,8 +587,9 @@ button:hover {
 }
 
 .slot-booked {
-  background: #ebedf0;
-  color: #7f8c8d;
+  background: #fde2e2;
+  color: #b02a37;
+  border-color: #f5c2c7;
   cursor: not-allowed;
 }
 

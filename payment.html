@@ -22,17 +22,17 @@
     
     .payment-card {
       width: 100%;
-      max-width: 500px;
-      padding: 40px;
-      border-radius: 18px;
+      max-width: 650px;
+      padding: 48px;
+      border-radius: 22px;
       background: white;
       box-shadow: 0 24px 50px rgba(0,0,0,0.12);
       text-align: center;
     }
     
     .payment-card h1 {
-      margin: 0 0 30px 0;
-      font-size: 2.2rem;
+      margin: 0 0 32px 0;
+      font-size: 2.4rem;
       color: #004080;
       font-weight: 700;
     }
@@ -40,9 +40,9 @@
     .invoice-section {
       background: #f7f9fc;
       border: 2px solid #e8ecf1;
-      border-radius: 12px;
-      padding: 25px;
-      margin-bottom: 30px;
+      border-radius: 14px;
+      padding: 32px;
+      margin-bottom: 32px;
       text-align: right;
     }
     
@@ -50,8 +50,9 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 12px 0;
-      font-size: 1.05rem;
+      flex-direction: row-reverse;
+      padding: 16px 0;
+      font-size: 1.12rem;
       color: #333;
       border-bottom: 1px solid #e0e0e0;
     }
@@ -63,44 +64,50 @@
     .invoice-label {
       font-weight: 600;
       color: #555;
+      font-size: 1rem;
+      text-align: right;
+      flex: 0 0 auto;
     }
     
     .invoice-value {
       font-weight: 600;
       color: #1f305d;
+      font-size: 1.08rem;
+      text-align: left;
+      flex: 1 1 auto;
     }
     
     .invoice-row.total-row {
       padding: 18px 0;
       border-top: 2px solid #e0e0e0;
       border-bottom: 2px solid #e0e0e0;
-      margin-top: 15px;
+      margin-top: 20px;
     }
     
     .total-row .invoice-label {
-      font-size: 1.25rem;
+      font-size: 1.3rem;
       font-weight: 700;
       color: #004080;
     }
     
     .total-row .invoice-value {
-      font-size: 1.35rem;
+      font-size: 1.45rem;
       font-weight: 700;
       color: #ff9800;
-      background: rgba(255, 152, 0, 0.1);
-      padding: 8px 15px;
-      border-radius: 8px;
+      background: rgba(255, 152, 0, 0.12);
+      padding: 12px 18px;
+      border-radius: 10px;
     }
     
     .pay-button {
       width: 100%;
-      padding: 16px;
-      margin-top: 20px;
+      padding: 18px;
+      margin-top: 24px;
       background: #004080;
       color: white;
       border: none;
-      border-radius: 12px;
-      font-size: 1.1rem;
+      border-radius: 14px;
+      font-size: 1.15rem;
       font-weight: 700;
       cursor: pointer;
       transition: all 0.3s ease;
@@ -114,13 +121,13 @@
     
     .back-button {
       width: 100%;
-      padding: 12px;
-      margin-top: 10px;
+      padding: 14px;
+      margin-top: 14px;
       background: #f0f4f8;
       color: #004080;
       border: 1px solid #d6e4f5;
-      border-radius: 12px;
-      font-size: 1rem;
+      border-radius: 14px;
+      font-size: 1.05rem;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.3s ease;
